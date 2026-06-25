@@ -1,0 +1,15 @@
+C:\Users\haris\.gemini\antigravity\scratch\RecruitIQ\src\RecruitIQ.Domain\bin\Debug\net10.0\RecruitIQ.Domain.deps.json
+C:\Users\haris\.gemini\antigravity\scratch\RecruitIQ\src\RecruitIQ.Domain\bin\Debug\net10.0\RecruitIQ.Domain.dll
+C:\Users\haris\.gemini\antigravity\scratch\RecruitIQ\src\RecruitIQ.Domain\bin\Debug\net10.0\RecruitIQ.Domain.pdb
+C:\Users\haris\.gemini\antigravity\scratch\RecruitIQ\src\RecruitIQ.Domain\bin\Debug\net10.0\RecruitIQ.Common.dll
+C:\Users\haris\.gemini\antigravity\scratch\RecruitIQ\src\RecruitIQ.Domain\bin\Debug\net10.0\RecruitIQ.Common.pdb
+C:\Users\haris\.gemini\antigravity\scratch\RecruitIQ\src\RecruitIQ.Domain\obj\Debug\net10.0\RecruitIQ.Domain.csproj.AssemblyReference.cache
+C:\Users\haris\.gemini\antigravity\scratch\RecruitIQ\src\RecruitIQ.Domain\obj\Debug\net10.0\RecruitIQ.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\haris\.gemini\antigravity\scratch\RecruitIQ\src\RecruitIQ.Domain\obj\Debug\net10.0\RecruitIQ.Domain.AssemblyInfoInputs.cache
+C:\Users\haris\.gemini\antigravity\scratch\RecruitIQ\src\RecruitIQ.Domain\obj\Debug\net10.0\RecruitIQ.Domain.AssemblyInfo.cs
+C:\Users\haris\.gemini\antigravity\scratch\RecruitIQ\src\RecruitIQ.Domain\obj\Debug\net10.0\RecruitIQ.Domain.csproj.CoreCompileInputs.cache
+C:\Users\haris\.gemini\antigravity\scratch\RecruitIQ\src\RecruitIQ.Domain\obj\Debug\net10.0\RecruitI.2A7628FD.Up2Date
+C:\Users\haris\.gemini\antigravity\scratch\RecruitIQ\src\RecruitIQ.Domain\obj\Debug\net10.0\RecruitIQ.Domain.dll
+C:\Users\haris\.gemini\antigravity\scratch\RecruitIQ\src\RecruitIQ.Domain\obj\Debug\net10.0\refint\RecruitIQ.Domain.dll
+C:\Users\haris\.gemini\antigravity\scratch\RecruitIQ\src\RecruitIQ.Domain\obj\Debug\net10.0\RecruitIQ.Domain.pdb
+C:\Users\haris\.gemini\antigravity\scratch\RecruitIQ\src\RecruitIQ.Domain\obj\Debug\net10.0\ref\RecruitIQ.Domain.dll

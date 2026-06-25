@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/RecruitIQ.Common/RecruitIQ.Common.csproj" />
+    <Project Path="src/RecruitIQ.Domain/RecruitIQ.Domain.csproj" />
+  </Folder>
+</Solution>
