@@ -1,0 +1,73 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "RecruitIQ.Application/1.0.0": {
+        "dependencies": {
+          "RecruitIQ.Common": "1.0.0",
+          "RecruitIQ.Contracts": "1.0.0",
+          "RecruitIQ.Domain": "1.0.0"
+        },
+        "runtime": {
+          "RecruitIQ.Application.dll": {}
+        }
+      },
+      "RecruitIQ.Common/1.0.0": {
+        "runtime": {
+          "RecruitIQ.Common.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "RecruitIQ.Contracts/1.0.0": {
+        "dependencies": {
+          "RecruitIQ.Common": "1.0.0"
+        },
+        "runtime": {
+          "RecruitIQ.Contracts.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "RecruitIQ.Domain/1.0.0": {
+        "dependencies": {
+          "RecruitIQ.Common": "1.0.0"
+        },
+        "runtime": {
+          "RecruitIQ.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "RecruitIQ.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "RecruitIQ.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "RecruitIQ.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "RecruitIQ.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <ProjectReference Include="..\RecruitIQ.Application\RecruitIQ.Application.csproj" />
+    <ProjectReference Include="..\RecruitIQ.Persistence\RecruitIQ.Persistence.csproj" />
+    <ProjectReference Include="..\RecruitIQ.Infrastructure\RecruitIQ.Infrastructure.csproj" />
+    <ProjectReference Include="..\RecruitIQ.Worker\RecruitIQ.Worker.csproj" />
+    <ProjectReference Include="..\RecruitIQ.Contracts\RecruitIQ.Contracts.csproj" />
+    <ProjectReference Include="..\RecruitIQ.Common\RecruitIQ.Common.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+</Project>

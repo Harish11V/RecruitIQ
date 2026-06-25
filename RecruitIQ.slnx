@@ -1,6 +1,16 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/RecruitIQ.API/RecruitIQ.API.csproj" />
+    <Project Path="src/RecruitIQ.Application/RecruitIQ.Application.csproj" />
     <Project Path="src/RecruitIQ.Common/RecruitIQ.Common.csproj" />
+    <Project Path="src/RecruitIQ.Contracts/RecruitIQ.Contracts.csproj" />
     <Project Path="src/RecruitIQ.Domain/RecruitIQ.Domain.csproj" />
+    <Project Path="src/RecruitIQ.Infrastructure/RecruitIQ.Infrastructure.csproj" />
+    <Project Path="src/RecruitIQ.Persistence/RecruitIQ.Persistence.csproj" />
+    <Project Path="src/RecruitIQ.Worker/RecruitIQ.Worker.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/RecruitIQ.IntegrationTests/RecruitIQ.IntegrationTests.csproj" />
+    <Project Path="tests/RecruitIQ.UnitTests/RecruitIQ.UnitTests.csproj" />
   </Folder>
 </Solution>

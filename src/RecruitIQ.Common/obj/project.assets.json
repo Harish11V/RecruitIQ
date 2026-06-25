@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\haris\\.gemini\\antigravity\\scratch\\RecruitIQ\\src\\RecruitIQ.Common\\RecruitIQ.Common.csproj",
+      "projectUniqueName": "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Common\\RecruitIQ.Common.csproj",
       "projectName": "RecruitIQ.Common",
-      "projectPath": "C:\\Users\\haris\\.gemini\\antigravity\\scratch\\RecruitIQ\\src\\RecruitIQ.Common\\RecruitIQ.Common.csproj",
+      "projectPath": "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Common\\RecruitIQ.Common.csproj",
       "packagesPath": "C:\\Users\\haris\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\haris\\.gemini\\antigravity\\scratch\\RecruitIQ\\src\\RecruitIQ.Common\\obj\\",
+      "outputPath": "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Common\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\haris\\AppData\\Roaming\\NuGet\\NuGet.Config"

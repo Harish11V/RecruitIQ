@@ -1,0 +1,15 @@
+C:\Projects\RecruitIQ\src\RecruitIQ.Contracts\bin\Debug\net10.0\RecruitIQ.Contracts.deps.json
+C:\Projects\RecruitIQ\src\RecruitIQ.Contracts\bin\Debug\net10.0\RecruitIQ.Contracts.dll
+C:\Projects\RecruitIQ\src\RecruitIQ.Contracts\bin\Debug\net10.0\RecruitIQ.Contracts.pdb
+C:\Projects\RecruitIQ\src\RecruitIQ.Contracts\bin\Debug\net10.0\RecruitIQ.Common.dll
+C:\Projects\RecruitIQ\src\RecruitIQ.Contracts\bin\Debug\net10.0\RecruitIQ.Common.pdb
+C:\Projects\RecruitIQ\src\RecruitIQ.Contracts\obj\Debug\net10.0\RecruitIQ.Contracts.csproj.AssemblyReference.cache
+C:\Projects\RecruitIQ\src\RecruitIQ.Contracts\obj\Debug\net10.0\RecruitIQ.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\RecruitIQ\src\RecruitIQ.Contracts\obj\Debug\net10.0\RecruitIQ.Contracts.AssemblyInfoInputs.cache
+C:\Projects\RecruitIQ\src\RecruitIQ.Contracts\obj\Debug\net10.0\RecruitIQ.Contracts.AssemblyInfo.cs
+C:\Projects\RecruitIQ\src\RecruitIQ.Contracts\obj\Debug\net10.0\RecruitIQ.Contracts.csproj.CoreCompileInputs.cache
+C:\Projects\RecruitIQ\src\RecruitIQ.Contracts\obj\Debug\net10.0\RecruitI.829D0FDA.Up2Date
+C:\Projects\RecruitIQ\src\RecruitIQ.Contracts\obj\Debug\net10.0\RecruitIQ.Contracts.dll
+C:\Projects\RecruitIQ\src\RecruitIQ.Contracts\obj\Debug\net10.0\refint\RecruitIQ.Contracts.dll
+C:\Projects\RecruitIQ\src\RecruitIQ.Contracts\obj\Debug\net10.0\RecruitIQ.Contracts.pdb
+C:\Projects\RecruitIQ\src\RecruitIQ.Contracts\obj\Debug\net10.0\ref\RecruitIQ.Contracts.dll

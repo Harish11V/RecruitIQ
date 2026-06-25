@@ -9,3 +9,14 @@ C:\Users\haris\.gemini\antigravity\scratch\RecruitIQ\src\RecruitIQ.Common\obj\De
 C:\Users\haris\.gemini\antigravity\scratch\RecruitIQ\src\RecruitIQ.Common\obj\Debug\net10.0\refint\RecruitIQ.Common.dll
 C:\Users\haris\.gemini\antigravity\scratch\RecruitIQ\src\RecruitIQ.Common\obj\Debug\net10.0\RecruitIQ.Common.pdb
 C:\Users\haris\.gemini\antigravity\scratch\RecruitIQ\src\RecruitIQ.Common\obj\Debug\net10.0\ref\RecruitIQ.Common.dll
+C:\Projects\RecruitIQ\src\RecruitIQ.Common\bin\Debug\net10.0\RecruitIQ.Common.deps.json
+C:\Projects\RecruitIQ\src\RecruitIQ.Common\bin\Debug\net10.0\RecruitIQ.Common.dll
+C:\Projects\RecruitIQ\src\RecruitIQ.Common\bin\Debug\net10.0\RecruitIQ.Common.pdb
+C:\Projects\RecruitIQ\src\RecruitIQ.Common\obj\Debug\net10.0\RecruitIQ.Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\RecruitIQ\src\RecruitIQ.Common\obj\Debug\net10.0\RecruitIQ.Common.AssemblyInfoInputs.cache
+C:\Projects\RecruitIQ\src\RecruitIQ.Common\obj\Debug\net10.0\RecruitIQ.Common.AssemblyInfo.cs
+C:\Projects\RecruitIQ\src\RecruitIQ.Common\obj\Debug\net10.0\RecruitIQ.Common.csproj.CoreCompileInputs.cache
+C:\Projects\RecruitIQ\src\RecruitIQ.Common\obj\Debug\net10.0\RecruitIQ.Common.dll
+C:\Projects\RecruitIQ\src\RecruitIQ.Common\obj\Debug\net10.0\refint\RecruitIQ.Common.dll
+C:\Projects\RecruitIQ\src\RecruitIQ.Common\obj\Debug\net10.0\RecruitIQ.Common.pdb
+C:\Projects\RecruitIQ\src\RecruitIQ.Common\obj\Debug\net10.0\ref\RecruitIQ.Common.dll

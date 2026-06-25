@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\haris\\.gemini\\antigravity\\scratch\\RecruitIQ\\src\\RecruitIQ.Domain\\RecruitIQ.Domain.csproj": {}
+    "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Domain\\RecruitIQ.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\haris\\.gemini\\antigravity\\scratch\\RecruitIQ\\src\\RecruitIQ.Common\\RecruitIQ.Common.csproj": {
+    "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Common\\RecruitIQ.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\haris\\.gemini\\antigravity\\scratch\\RecruitIQ\\src\\RecruitIQ.Common\\RecruitIQ.Common.csproj",
+        "projectUniqueName": "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Common\\RecruitIQ.Common.csproj",
         "projectName": "RecruitIQ.Common",
-        "projectPath": "C:\\Users\\haris\\.gemini\\antigravity\\scratch\\RecruitIQ\\src\\RecruitIQ.Common\\RecruitIQ.Common.csproj",
+        "projectPath": "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Common\\RecruitIQ.Common.csproj",
         "packagesPath": "C:\\Users\\haris\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\haris\\.gemini\\antigravity\\scratch\\RecruitIQ\\src\\RecruitIQ.Common\\obj\\",
+        "outputPath": "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Common\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\haris\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -339,14 +339,14 @@
         }
       }
     },
-    "C:\\Users\\haris\\.gemini\\antigravity\\scratch\\RecruitIQ\\src\\RecruitIQ.Domain\\RecruitIQ.Domain.csproj": {
+    "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Domain\\RecruitIQ.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\haris\\.gemini\\antigravity\\scratch\\RecruitIQ\\src\\RecruitIQ.Domain\\RecruitIQ.Domain.csproj",
+        "projectUniqueName": "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Domain\\RecruitIQ.Domain.csproj",
         "projectName": "RecruitIQ.Domain",
-        "projectPath": "C:\\Users\\haris\\.gemini\\antigravity\\scratch\\RecruitIQ\\src\\RecruitIQ.Domain\\RecruitIQ.Domain.csproj",
+        "projectPath": "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Domain\\RecruitIQ.Domain.csproj",
         "packagesPath": "C:\\Users\\haris\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\haris\\.gemini\\antigravity\\scratch\\RecruitIQ\\src\\RecruitIQ.Domain\\obj\\",
+        "outputPath": "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\haris\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -362,8 +362,8 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\haris\\.gemini\\antigravity\\scratch\\RecruitIQ\\src\\RecruitIQ.Common\\RecruitIQ.Common.csproj": {
-                "projectPath": "C:\\Users\\haris\\.gemini\\antigravity\\scratch\\RecruitIQ\\src\\RecruitIQ.Common\\RecruitIQ.Common.csproj"
+              "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Common\\RecruitIQ.Common.csproj": {
+                "projectPath": "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Common\\RecruitIQ.Common.csproj"
               }
             }
           }
