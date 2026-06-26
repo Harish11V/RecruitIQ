@@ -19,3 +19,4 @@ C:\Projects\RecruitIQ\src\RecruitIQ.Persistence\obj\Debug\net10.0\RecruitIQ.Pers
 C:\Projects\RecruitIQ\src\RecruitIQ.Persistence\obj\Debug\net10.0\refint\RecruitIQ.Persistence.dll
 C:\Projects\RecruitIQ\src\RecruitIQ.Persistence\obj\Debug\net10.0\RecruitIQ.Persistence.pdb
 C:\Projects\RecruitIQ\src\RecruitIQ.Persistence\obj\Debug\net10.0\ref\RecruitIQ.Persistence.dll
+C:\Projects\RecruitIQ\src\RecruitIQ.Persistence\obj\Debug\net10.0\RecruitIQ.Persistence.sourcelink.json

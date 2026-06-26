@@ -13,6 +13,12 @@ public class User : BaseEntity, IMultiTenant
     public string LastName { get; set; } = string.Empty;
     public bool IsActive { get; set; } = true;
 
+    // Security & Audit properties
+    public int FailedLoginAttempts { get; set; }
+    public DateTime? LockoutUntil { get; set; }
+    public DateTime? LastLoginAt { get; set; }
+    public string? LastLoginIp { get; set; }
+
     // Navigation properties
     public virtual Company Company { get; set; } = null!;
     public virtual ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();

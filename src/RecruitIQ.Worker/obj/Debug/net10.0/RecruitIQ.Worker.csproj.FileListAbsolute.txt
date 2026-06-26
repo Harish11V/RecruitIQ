@@ -19,3 +19,4 @@ C:\Projects\RecruitIQ\src\RecruitIQ.Worker\obj\Debug\net10.0\RecruitIQ.Worker.dl
 C:\Projects\RecruitIQ\src\RecruitIQ.Worker\obj\Debug\net10.0\refint\RecruitIQ.Worker.dll
 C:\Projects\RecruitIQ\src\RecruitIQ.Worker\obj\Debug\net10.0\RecruitIQ.Worker.pdb
 C:\Projects\RecruitIQ\src\RecruitIQ.Worker\obj\Debug\net10.0\ref\RecruitIQ.Worker.dll
+C:\Projects\RecruitIQ\src\RecruitIQ.Worker\obj\Debug\net10.0\RecruitIQ.Worker.sourcelink.json

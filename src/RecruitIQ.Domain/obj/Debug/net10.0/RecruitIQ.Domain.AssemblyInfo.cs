@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RecruitIQ.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+381e4b2704ac33419ac2f1b171c5ae1d0a64abb0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+50fcb89c3f8898e56f6c8f3ed68181431029c5a1")]
 [assembly: System.Reflection.AssemblyProductAttribute("RecruitIQ.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RecruitIQ.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

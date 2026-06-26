@@ -12,6 +12,7 @@ public class RefreshToken : BaseEntity
     public DateTime? RevokedAt { get; set; }
     public string? RevokedByIp { get; set; }
     public string? ReplacedByToken { get; set; }
+    public string? UserAgent { get; set; }
 
     // Navigation properties
     public virtual User User { get; set; } = null!;

@@ -20,3 +20,4 @@ C:\Projects\RecruitIQ\src\RecruitIQ.Common\obj\Debug\net10.0\RecruitIQ.Common.dl
 C:\Projects\RecruitIQ\src\RecruitIQ.Common\obj\Debug\net10.0\refint\RecruitIQ.Common.dll
 C:\Projects\RecruitIQ\src\RecruitIQ.Common\obj\Debug\net10.0\RecruitIQ.Common.pdb
 C:\Projects\RecruitIQ\src\RecruitIQ.Common\obj\Debug\net10.0\ref\RecruitIQ.Common.dll
+C:\Projects\RecruitIQ\src\RecruitIQ.Common\obj\Debug\net10.0\RecruitIQ.Common.sourcelink.json

@@ -28,3 +28,4 @@ C:\Projects\RecruitIQ\src\RecruitIQ.Domain\obj\Debug\net10.0\RecruitIQ.Domain.dl
 C:\Projects\RecruitIQ\src\RecruitIQ.Domain\obj\Debug\net10.0\refint\RecruitIQ.Domain.dll
 C:\Projects\RecruitIQ\src\RecruitIQ.Domain\obj\Debug\net10.0\RecruitIQ.Domain.pdb
 C:\Projects\RecruitIQ\src\RecruitIQ.Domain\obj\Debug\net10.0\ref\RecruitIQ.Domain.dll
+C:\Projects\RecruitIQ\src\RecruitIQ.Domain\obj\Debug\net10.0\RecruitIQ.Domain.sourcelink.json

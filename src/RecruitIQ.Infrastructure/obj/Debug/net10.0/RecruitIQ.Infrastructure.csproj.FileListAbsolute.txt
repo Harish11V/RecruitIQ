@@ -19,3 +19,4 @@ C:\Projects\RecruitIQ\src\RecruitIQ.Infrastructure\obj\Debug\net10.0\RecruitIQ.I
 C:\Projects\RecruitIQ\src\RecruitIQ.Infrastructure\obj\Debug\net10.0\refint\RecruitIQ.Infrastructure.dll
 C:\Projects\RecruitIQ\src\RecruitIQ.Infrastructure\obj\Debug\net10.0\RecruitIQ.Infrastructure.pdb
 C:\Projects\RecruitIQ\src\RecruitIQ.Infrastructure\obj\Debug\net10.0\ref\RecruitIQ.Infrastructure.dll
+C:\Projects\RecruitIQ\src\RecruitIQ.Infrastructure\obj\Debug\net10.0\RecruitIQ.Infrastructure.sourcelink.json
