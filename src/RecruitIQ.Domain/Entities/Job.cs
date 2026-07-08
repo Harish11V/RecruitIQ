@@ -18,6 +18,10 @@ public class Job : BaseEntity, IMultiTenant
     public decimal? SalaryMin { get; set; }
     public decimal? SalaryMax { get; set; }
     public Guid? HiringManagerId { get; set; }
+    public string JobCode { get; set; } = string.Empty;
+    public string Slug { get; set; } = string.Empty;
+    public DateTime? PublishedAt { get; set; }
+    public DateTime? ClosingDate { get; set; }
 
     // Navigation properties
     public virtual Company Company { get; set; } = null!;

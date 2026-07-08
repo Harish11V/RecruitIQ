@@ -1,0 +1,20 @@
+<div class="dialog-container p-4">
+  <div class="dialog-header d-flex align-center gap-2 mb-3">
+    <mat-icon class="material-symbols-rounded warning-icon text-danger">sync_problem</mat-icon>
+    <h2 mat-dialog-title class="m-0 font-semibold">{{ data.title }}</h2>
+  </div>
+
+  <div mat-dialog-content class="dialog-body mb-4">
+    <p class="m-0 message-text">{{ data.message }}</p>
+  </div>
+
+  <div mat-dialog-actions align="end" class="dialog-actions d-flex gap-2">
+    <button mat-button (click)="dialogRef.close('cancel')">
+      {{ data.cancelButtonText }}
+    </button>
+    <button mat-flat-button color="primary" (click)="dialogRef.close('reload')">
+      <mat-icon class="material-symbols-rounded">refresh</mat-icon>
+      <span>{{ data.reloadButtonText }}</span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="admin-layout-container">
+  <app-topbar></app-topbar>
+
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav 
+      #sidenav 
+      [mode]="layoutService.isMobile() ? 'over' : 'side'" 
+      [opened]="!layoutService.isSidebarCollapsed()"
+      (closedStart)="layoutService.isSidebarCollapsed.set(true)"
+      class="layout-sidenav">
+      <app-sidebar></app-sidebar>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="sidenav-content">
+      <main class="main-content">
+        <div class="page-transition-wrapper">
+          <router-outlet></router-outlet>
+        </div>
+      </main>
+      <app-footer></app-footer>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

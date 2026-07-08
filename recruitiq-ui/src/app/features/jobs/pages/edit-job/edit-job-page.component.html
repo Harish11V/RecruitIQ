@@ -1,0 +1,63 @@
+<app-page-container>
+  
+  @if (isPageLoading()) {
+    <app-section-header title="Loading Job..." description="Fetching latest job details."></app-section-header>
+    
+    <div class="skeleton-header-box d-flex align-center justify-between p-6 mt-6">
+      <div class="skeleton-header-left">
+        <div class="skeleton-line title mb-2"></div>
+        <div class="skeleton-line text-medium"></div>
+      </div>
+      <div class="skeleton-header-right">
+        <div class="skeleton-line action"></div>
+      </div>
+    </div>
+  }
+
+  @else if (error() || !job()) {
+    <app-section-header title="Edit Job" description="Modify job details.">
+      <button actions mat-stroked-button routerLink="/admin/jobs">
+        <mat-icon class="material-symbols-rounded">arrow_back</mat-icon>
+        <span>Back to list</span>
+      </button>
+    </app-section-header>
+
+    <div class="error-state-card d-flex flex-column align-center justify-center p-8 gap-3 mt-6">
+      <mat-icon class="error-icon material-symbols-rounded">error_outline</mat-icon>
+      <h3 class="error-title">Job Not Found</h3>
+      <p class="error-desc">{{ error() || 'The requested job posting does not exist or has been deleted.' }}</p>
+      
+      <div class="error-actions d-flex gap-2">
+        <button mat-stroked-button routerLink="/admin/jobs">
+          <mat-icon class="material-symbols-rounded">arrow_back</mat-icon>
+          <span>Back to Jobs</span>
+        </button>
+        <button mat-flat-button color="primary" (click)="onRetry()">
+          <mat-icon class="material-symbols-rounded">refresh</mat-icon>
+          <span>Retry</span>
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- Reusable Form Component -->
+  @else {
+    <app-section-header [title]="'Edit Job'" [description]="'Update information for ' + job()?.title">
+      <button actions mat-stroked-button [routerLink]="['/admin/jobs', job()?.jobId]">
+        <mat-icon class="material-symbols-rounded">visibility</mat-icon>
+        <span>View Details</span>
+      </button>
+    </app-section-header>
+
+    <div class="mt-6">
+      <app-job-form
+        mode="edit"
+        [job]="job()"
+        [isLoading]="isSaving()"
+        (save)="onSave($event)"
+        (cancel)="onCancel()">
+      </app-job-form>
+    </div>
+  }
+
+</app-page-container>

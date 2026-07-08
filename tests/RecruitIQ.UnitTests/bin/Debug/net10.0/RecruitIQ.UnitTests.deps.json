@@ -462,7 +462,8 @@
       },
       "RecruitIQ.Contracts/1.0.0": {
         "dependencies": {
-          "RecruitIQ.Common": "1.0.0"
+          "RecruitIQ.Common": "1.0.0",
+          "RecruitIQ.Domain": "1.0.0"
         },
         "runtime": {
           "RecruitIQ.Contracts.dll": {

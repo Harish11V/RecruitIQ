@@ -1230,6 +1230,9 @@
             "projectReferences": {
               "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Common\\RecruitIQ.Common.csproj": {
                 "projectPath": "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Common\\RecruitIQ.Common.csproj"
+              },
+              "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Domain\\RecruitIQ.Domain.csproj": {
+                "projectPath": "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Domain\\RecruitIQ.Domain.csproj"
               }
             }
           }
@@ -3131,6 +3134,10 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Mvc.Testing": {
+              "target": "Package",
+              "version": "[10.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
               "version": "[10.0.9, )"

@@ -1,0 +1,53 @@
+<div class="sidebar-wrapper" [class.collapsed]="layoutService.isSidebarCollapsed()">
+  <!-- Sidebar Header / Branding -->
+  <div class="sidebar-header d-flex align-center gap-3">
+    <mat-icon class="brand-logo">supervised_user_circle</mat-icon>
+    @if (!layoutService.isSidebarCollapsed()) {
+      <span class="brand-name">RecruitIQ</span>
+    }
+  </div>
+
+  <!-- Navigation Lists -->
+  <div class="sidebar-content">
+    @for (section of navigationService.sections(); track $index) {
+      <div class="nav-section">
+        @if (section.sectionTitle && !layoutService.isSidebarCollapsed()) {
+          <h3 class="section-title">{{ section.sectionTitle }}</h3>
+        } @else if (section.sectionTitle && layoutService.isSidebarCollapsed()) {
+          <div class="section-divider"></div>
+        }
+
+        <mat-nav-list class="nav-list">
+          @for (item of section.items; track item.label) {
+            @if (item.enabled) {
+              <a mat-list-item 
+                 [routerLink]="item.route" 
+                 routerLinkActive="active-link" 
+                 class="nav-item"
+                 [matTooltip]="item.label"
+                 [matTooltipDisabled]="!layoutService.isSidebarCollapsed()"
+                 matTooltipPosition="right">
+                <mat-icon matListItemIcon class="nav-icon material-symbols-rounded">{{ item.icon }}</mat-icon>
+                @if (!layoutService.isSidebarCollapsed()) {
+                  <span class="nav-label">{{ item.label }}</span>
+                }
+              </a>
+            } @else {
+              <div mat-list-item 
+                   class="nav-item disabled-nav-item"
+                   [matTooltip]="item.label + ' (Coming Soon)'"
+                   [matTooltipDisabled]="!layoutService.isSidebarCollapsed()"
+                   matTooltipPosition="right">
+                <mat-icon matListItemIcon class="nav-icon material-symbols-rounded">{{ item.icon }}</mat-icon>
+                @if (!layoutService.isSidebarCollapsed()) {
+                  <span class="nav-label">{{ item.label }}</span>
+                  <span class="coming-soon-badge">Soon</span>
+                }
+              </div>
+            }
+          }
+        </mat-nav-list>
+      </div>
+    }
+  </div>
+</div>

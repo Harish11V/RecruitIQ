@@ -1,0 +1,80 @@
+@use '../../../../styles/theme/theme' as theme;
+
+.skeleton-header-box {
+  background-color: theme.$surface-bg;
+  border: 1px solid theme.$border-color;
+  border-radius: theme.$radius-lg;
+  height: 90px;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.06) 20%, rgba(255,255,255,0.1) 60%, rgba(255,255,255,0) 100%);
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+.skeleton-line {
+  height: 12px;
+  background-color: theme.$gray-200;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.06) 20%, rgba(255,255,255,0.1) 60%, rgba(255,255,255,0) 100%);
+    animation: shimmer 1.5s infinite;
+  }
+
+  &.title { width: 40%; height: 16px; }
+  &.text-medium { width: 140px; }
+  &.action { width: 80px; height: 36px; border-radius: 6px; }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.error-state-card {
+  text-align: center;
+  background-color: theme.$surface-bg;
+  border: 1px solid theme.$border-color;
+  border-radius: theme.$radius-lg;
+
+  .error-icon {
+    font-size: 48px;
+    height: 48px;
+    width: 48px;
+    color: #ef4444;
+  }
+
+  .error-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: theme.$gray-900;
+    margin: 8px 0 0 0;
+  }
+
+  .error-desc {
+    font-size: 13px;
+    color: theme.$gray-500;
+    max-width: 400px;
+    margin: 4px 0 16px 0;
+  }
+}

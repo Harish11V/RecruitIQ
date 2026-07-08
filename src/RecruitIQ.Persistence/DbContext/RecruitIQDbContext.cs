@@ -92,6 +92,16 @@ public class RecruitIQDbContext : Microsoft.EntityFrameworkCore.DbContext, IRecr
         base.Remove(entity);
     }
 
+    public IQueryable<TEntity> QueryReadOnly<TEntity>() where TEntity : class
+    {
+        return Set<TEntity>().AsNoTracking();
+    }
+
+    public void SetOriginalRowVersion<TEntity>(TEntity entity, byte[] rowVersion) where TEntity : RecruitIQ.Domain.Base.BaseEntity
+    {
+        Entry(entity).Property(e => e.RowVersion).OriginalValue = rowVersion;
+    }
+
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         return base.SaveChangesAsync(cancellationToken);

@@ -1,0 +1,82 @@
+<mat-toolbar class="topbar">
+  <!-- Left Side: Toggle & Breadcrumbs -->
+  <div class="topbar-left d-flex align-center gap-2">
+    <button mat-icon-button (click)="layoutService.toggleSidebar()" aria-label="Toggle sidebar" class="toggle-btn">
+      <mat-icon class="material-symbols-rounded">menu</mat-icon>
+    </button>
+    
+    <div class="breadcrumbs-container d-flex align-center">
+      <a routerLink="/admin/dashboard" class="breadcrumb-home-link">
+        <mat-icon class="material-symbols-rounded home-icon">home</mat-icon>
+      </a>
+      @for (bc of breadcrumbService.breadcrumbs(); track bc.url; let last = $last) {
+        <mat-icon class="breadcrumb-separator material-symbols-rounded">chevron_right</mat-icon>
+        @if (!last) {
+          <a [routerLink]="bc.url" class="breadcrumb-link">{{ bc.label }}</a>
+        } @else {
+          <span class="breadcrumb-current">{{ bc.label }}</span>
+        }
+      }
+    </div>
+  </div>
+
+  <!-- Center: Readonly Search -->
+  <div class="topbar-center">
+    <div class="search-box-wrapper d-flex align-center">
+      <mat-icon class="search-icon material-symbols-rounded">search</mat-icon>
+      <input type="text" readonly placeholder="Search RecruitIQ... (Coming Soon)" class="search-input">
+    </div>
+  </div>
+
+  <!-- Right Side: Notifications, Version, Avatar -->
+  <div class="topbar-right d-flex align-center gap-3">
+    <!-- Version Badge -->
+    <span class="app-version-badge">RecruitIQ v1.0.0</span>
+
+    <!-- Notifications Bell -->
+    <button mat-icon-button aria-label="Notifications" class="icon-button">
+      <mat-icon matBadge="0" matBadgeColor="warn" class="material-symbols-rounded">notifications</mat-icon>
+    </button>
+
+    <mat-divider [vertical]="true" class="topbar-divider"></mat-divider>
+
+    <!-- User Profile Dropdown -->
+    <button mat-button [matMenuTriggerFor]="profileMenu" class="profile-trigger-btn">
+      <div class="d-flex align-center gap-2">
+        <app-user-avatar 
+          [name]="authService.currentUser()?.fullName || 'User'" 
+          [size]="36" 
+          status="online">
+        </app-user-avatar>
+        <div class="user-meta d-flex flex-column align-start">
+          <span class="user-display-name">{{ authService.currentUser()?.fullName || 'User' }}</span>
+          <span class="user-display-role">{{ authService.currentUser()?.role || 'Member' }}</span>
+        </div>
+        <mat-icon class="material-symbols-rounded arrow-icon">keyboard_arrow_down</mat-icon>
+      </div>
+    </button>
+
+    <!-- Profile Menu -->
+    <mat-menu #profileMenu="matMenu" xPosition="before" class="custom-profile-menu">
+      <div class="menu-user-header d-flex flex-column gap-1">
+        <span class="menu-user-name">{{ authService.currentUser()?.fullName || 'User' }}</span>
+        <span class="menu-user-email">{{ authService.currentUser()?.email || 'user@recruitiq.com' }}</span>
+        <span class="menu-user-role">{{ authService.currentUser()?.role || 'Member' }}</span>
+      </div>
+      <mat-divider></mat-divider>
+      <button mat-menu-item disabled>
+        <mat-icon class="material-symbols-rounded">person</mat-icon>
+        <span>Profile</span>
+      </button>
+      <button mat-menu-item disabled>
+        <mat-icon class="material-symbols-rounded">settings</mat-icon>
+        <span>Settings</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="onLogout()">
+        <mat-icon class="material-symbols-rounded text-danger">logout</mat-icon>
+        <span class="text-danger">Logout</span>
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

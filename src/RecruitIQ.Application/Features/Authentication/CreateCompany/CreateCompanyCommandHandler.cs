@@ -48,7 +48,7 @@ public class CreateCompanyCommandHandler : IRequestHandler<CreateCompanyCommand,
         await _context.SaveChangesAsync(cancellationToken);
 
         // 4. Create Settings
-        var settings = new CompanySettings
+        var settings = new RecruitIQ.Domain.Entities.CompanySettings
         {
             CompanyId = company.Id,
             Theme = "Light",

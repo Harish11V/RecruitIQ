@@ -1,0 +1,38 @@
+<div class="dialog-container p-4">
+  <!-- Dialog Header -->
+  <div class="dialog-header d-flex align-center gap-2 mb-3">
+    @if (data.icon) {
+      <mat-icon class="material-symbols-rounded dialog-icon" [style.color]="getIconColor()">{{ data.icon }}</mat-icon>
+    }
+    <h2 mat-dialog-title class="m-0 font-semibold">{{ data.title }}</h2>
+  </div>
+
+  <!-- Dialog Body -->
+  <div mat-dialog-content class="dialog-body mb-4">
+    <p class="m-0 message-text">{{ data.message }}</p>
+    
+    @if (data.warningText) {
+      <div class="warning-box d-flex align-start gap-2 p-3 mt-3">
+        <mat-icon class="material-symbols-rounded warning-box-icon">warning</mat-icon>
+        <span class="warning-box-text">{{ data.warningText }}</span>
+      </div>
+    }
+  </div>
+
+  <!-- Actions -->
+  <div mat-dialog-actions align="end" class="dialog-actions d-flex gap-2">
+    <button mat-button [disabled]="isLoading()" (click)="dialogRef.close(false)">
+      Cancel
+    </button>
+    <button mat-flat-button [color]="data.confirmButtonColor || 'primary'" [disabled]="isLoading()" (click)="onConfirm()">
+      @if (isLoading()) {
+        <div class="loading-btn d-flex align-center gap-2">
+          <mat-spinner diameter="18" color="accent"></mat-spinner>
+          <span>Processing...</span>
+        </div>
+      } @else {
+        <span>{{ data.confirmButtonText }}</span>
+      }
+    </button>
+  </div>
+</div>

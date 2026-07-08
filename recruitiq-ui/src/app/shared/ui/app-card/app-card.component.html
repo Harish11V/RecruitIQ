@@ -1,0 +1,17 @@
+<div class="app-card" [class.hoverable]="hoverable()">
+  @if (hasHeader()) {
+    <div class="card-header">
+      <ng-content select="[card-header]"></ng-content>
+    </div>
+  }
+
+  <div class="card-content">
+    <ng-content select="[card-content]"></ng-content>
+  </div>
+
+  @if (hasFooter()) {
+    <div class="card-footer">
+      <ng-content select="[card-footer]"></ng-content>
+    </div>
+  }
+</div>

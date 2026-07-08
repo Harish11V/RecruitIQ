@@ -21,6 +21,12 @@ public static class DependencyInjection
         services.AddScoped<ICurrentUserService, CurrentUserService>();
         services.AddScoped<ITenantService, TenantService>();
 
+        // Configure FileStorageOptions
+        services.Configure<FileStorageOptions>(configuration.GetSection(FileStorageOptions.SectionName));
+
+        // Register file storage service
+        services.AddScoped<IFileStorageService, LocalFileStorageService>();
+
         return services;
     }
 }

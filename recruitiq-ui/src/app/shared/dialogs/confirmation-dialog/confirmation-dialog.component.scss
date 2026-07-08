@@ -1,0 +1,54 @@
+@use '../../../styles/theme/theme' as theme;
+
+.dialog-container {
+  max-width: 440px;
+}
+
+.dialog-icon {
+  font-size: 28px;
+  height: 28px;
+  width: 28px;
+}
+
+mat-dialog-title {
+  font-size: 18px;
+  color: theme.$gray-900;
+}
+
+.message-text {
+  font-size: 14px;
+  color: theme.$gray-600;
+  line-height: 1.5;
+}
+
+.warning-box {
+  background-color: rgba(245, 158, 11, 0.05); // light amber
+  border: 1px dashed rgba(245, 158, 11, 0.25);
+  border-radius: 8px;
+  color: theme.$gray-600;
+
+  .warning-box-icon {
+    color: #f59e0b; // Amber-500
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+    flex-shrink: 0;
+  }
+
+  .warning-box-text {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+}
+
+.dialog-actions {
+  padding: theme.$space-3 0 0 0;
+  border-top: 1px solid theme.$border-color;
+}
+
+.loading-btn {
+  ::ng-deep .mat-mdc-progress-spinner circle {
+    stroke: #ffffff !important;
+  }
+}

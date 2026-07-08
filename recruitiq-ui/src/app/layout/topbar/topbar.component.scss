@@ -1,0 +1,233 @@
+@use '../../styles/theme/theme' as theme;
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: theme.$surface-bg !important;
+  border-bottom: 1px solid theme.$border-color;
+  color: theme.$gray-800;
+  height: 72px;
+  padding: 0 24px !important;
+  z-index: 10;
+  position: relative;
+  box-shadow: none !important;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .toggle-btn {
+    color: theme.$gray-500;
+    margin-left: -8px;
+  }
+}
+
+.breadcrumbs-container {
+  color: theme.$gray-400;
+  font-size: 14px;
+  font-weight: 500;
+
+  .breadcrumb-home-link {
+    display: flex;
+    align-items: center;
+    color: theme.$gray-400;
+    transition: color 150ms ease-in-out;
+
+    &:hover {
+      color: #3f51b5;
+    }
+
+    .home-icon {
+      font-size: 18px;
+      height: 18px;
+      width: 18px;
+    }
+  }
+
+  .breadcrumb-separator {
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+    color: theme.$gray-300;
+    margin: 0 4px;
+  }
+
+  .breadcrumb-link {
+    color: theme.$gray-500;
+    text-decoration: none;
+    transition: color 150ms ease-in-out;
+
+    &:hover {
+      color: #3f51b5;
+    }
+  }
+
+  .breadcrumb-current {
+    color: theme.$gray-800;
+    font-weight: 600;
+  }
+}
+
+.topbar-center {
+  flex: 1;
+  max-width: 420px;
+  margin: 0 24px;
+}
+
+.search-box-wrapper {
+  background-color: theme.$gray-50;
+  border: 1px solid theme.$border-color;
+  border-radius: 8px;
+  padding: 0 12px;
+  height: 40px;
+  width: 100%;
+  transition: all 150ms ease-in-out;
+
+  .search-icon {
+    color: theme.$gray-400;
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+    margin-right: 8px;
+  }
+
+  .search-input {
+    border: none;
+    background: transparent;
+    outline: none;
+    width: 100%;
+    color: theme.$gray-800;
+    font-size: 13px;
+    cursor: default;
+
+    &::placeholder {
+      color: theme.$gray-400;
+    }
+  }
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  .app-version-badge {
+    font-size: 12px;
+    font-weight: 600;
+    color: #3f51b5;
+    background-color: rgba(63, 81, 181, 0.06);
+    padding: 4px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.2px;
+  }
+
+  .icon-button {
+    color: theme.$gray-500;
+  }
+
+  .topbar-divider {
+    height: 24px;
+    border-color: theme.$border-color;
+  }
+}
+
+.profile-trigger-btn {
+  height: 48px !important;
+  padding: 0 8px !important;
+  border-radius: 8px !important;
+  color: theme.$gray-800 !important;
+  font-weight: 500 !important;
+
+  &:hover {
+    background-color: theme.$gray-50 !important;
+  }
+
+  .user-meta {
+    line-height: 1.2;
+    text-align: left;
+  }
+
+  .user-display-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: theme.$gray-800;
+  }
+
+  .user-display-role {
+    font-size: 11px;
+    color: theme.$gray-400;
+    font-weight: 500;
+  }
+
+  .arrow-icon {
+    color: theme.$gray-400;
+    font-size: 18px;
+    height: 18px;
+    width: 18px;
+    margin-left: 2px;
+  }
+}
+
+::ng-deep .custom-profile-menu {
+  border-radius: 12px !important;
+  border: 1px solid theme.$border-color !important;
+  box-shadow: theme.$shadow-md !important;
+  min-width: 200px !important;
+  margin-top: 8px !important;
+  background-color: theme.$surface-bg !important;
+
+  .menu-user-header {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+
+    .menu-user-name {
+      font-weight: 600;
+      color: theme.$gray-800;
+      font-size: 14px;
+    }
+
+    .menu-user-email {
+      color: theme.$gray-400;
+      font-size: 12px;
+    }
+
+    .menu-user-role {
+      align-self: flex-start;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #3f51b5;
+      background-color: rgba(63, 81, 181, 0.06);
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-top: 6px;
+    }
+  }
+
+  .mat-mdc-menu-item {
+    height: 40px !important;
+    font-size: 13px !important;
+    color: theme.$gray-700 !important;
+
+    &:hover:not([disabled]) {
+      background-color: theme.$gray-50 !important;
+    }
+
+    .material-symbols-rounded {
+      color: theme.$gray-400;
+      font-size: 18px;
+      margin-right: 8px;
+    }
+  }
+
+  .text-danger {
+    color: #ef4444 !important;
+    .material-symbols-rounded {
+      color: #ef4444 !important;
+    }
+  }
+}

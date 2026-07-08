@@ -1,0 +1,13 @@
+<div class="avatar-container" [style.width.px]="size()" [style.height.px]="size()" [style.font-size.px]="size() * 0.4">
+  @if (imageUrl()) {
+    <img [src]="imageUrl()" [alt]="name()" class="avatar-image">
+  } @else {
+    <div class="avatar-initials" [style.background-color]="backgroundColor()">
+      {{ initials() }}
+    </div>
+  }
+
+  @if (status()) {
+    <span class="status-indicator" [class]="status()" [style.width.px]="statusSize()" [style.height.px]="statusSize()"></span>
+  }
+</div>

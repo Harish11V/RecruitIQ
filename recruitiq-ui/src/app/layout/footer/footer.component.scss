@@ -1,0 +1,18 @@
+@use '../../styles/theme/theme' as theme;
+
+.footer {
+  background-color: theme.$surface-bg;
+  border-top: 1px solid theme.$border-color;
+  padding: 16px 24px;
+  color: theme.$gray-400;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.footer-content {
+  width: 100%;
+}
+
+.version-label {
+  color: theme.$gray-400;
+}

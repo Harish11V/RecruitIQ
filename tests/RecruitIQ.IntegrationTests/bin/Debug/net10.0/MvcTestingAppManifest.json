@@ -1,0 +1,10 @@
+{
+  "RecruitIQ.API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.API",
+  "RecruitIQ.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Application",
+  "RecruitIQ.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Common",
+  "RecruitIQ.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Contracts",
+  "RecruitIQ.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Domain",
+  "RecruitIQ.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Infrastructure",
+  "RecruitIQ.Persistence, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Persistence",
+  "RecruitIQ.Worker, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Worker"
+}

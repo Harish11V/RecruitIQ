@@ -1,0 +1,28 @@
+@use '@angular/material' as mat;
+@use './theme-colors' as colors;
+
+// Forward Design Tokens for import propagation
+@forward '../tokens/colors';
+@forward '../tokens/spacing';
+@forward '../tokens/radius';
+@forward '../tokens/shadows';
+@forward '../tokens/typography';
+@forward '../tokens/zindex';
+@forward '../tokens/animations';
+@forward '../tokens/breakpoints';
+
+// Define RecruitIQ theme using Material 3 and custom generated palettes
+$recruitiq-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: colors.$primary-palette,
+    tertiary: colors.$tertiary-palette
+  ),
+  typography: (
+    brand-family: 'Inter, sans-serif',
+    plain-family: 'Inter, sans-serif'
+  ),
+  density: (
+    scale: -1
+  )
+));

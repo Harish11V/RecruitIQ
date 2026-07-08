@@ -1,0 +1,14 @@
+// Animation Durations
+$duration-fast: 150ms;
+$duration-normal: 250ms;
+$duration-slow: 400ms;
+
+// Animation Easing Curves
+$ease-standard: cubic-bezier(0.2, 0, 0, 1);
+$ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
+$ease-accelerate: cubic-bezier(0.3, 0, 1, 1);
+
+// Eased Transition tokens
+$transition-fast: all $duration-fast $ease-standard;
+$transition-normal: all $duration-normal $ease-standard;
+$transition-slow: all $duration-slow $ease-standard;

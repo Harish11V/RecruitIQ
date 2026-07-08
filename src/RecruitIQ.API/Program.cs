@@ -94,6 +94,8 @@ app.UseMiddleware<TenantMiddleware>();
 
 app.UseHttpsRedirection();
 
+app.UseStaticFiles();
+
 app.UseAuthentication();
 app.UseAuthorization();
 

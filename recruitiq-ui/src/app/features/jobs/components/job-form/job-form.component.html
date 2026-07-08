@@ -1,0 +1,271 @@
+<form [formGroup]="jobForm" (ngSubmit)="onSubmit()" class="create-job-form-layout">
+  
+  <!-- Form Sections Grid -->
+  <div class="form-sections-column">
+    
+    <!-- Section 1: Basic Information -->
+    <app-card [hasHeader]="true" id="basic-info-section">
+      <span card-header class="section-card-title d-flex align-center gap-2">
+        <mat-icon class="material-symbols-rounded text-primary">info</mat-icon>
+        <span>Basic Information</span>
+      </span>
+      <div card-content class="form-grid-two-col">
+        <!-- Job Title -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Job Title</mat-label>
+          <input matInput formControlName="title" placeholder="e.g. Senior Software Engineer" maxlength="200" required>
+          <mat-hint align="end">{{ jobForm.get('title')?.value?.length || 0 }}/200</mat-hint>
+          @if (jobForm.get('title')?.hasError('required') && jobForm.get('title')?.touched) {
+            <mat-error>Job title is required.</mat-error>
+          }
+          @if (jobForm.get('title')?.hasError('backendError')) {
+            <mat-error>{{ jobForm.get('title')?.getError('backendError') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Auto-generated Job Code Notice -->
+        <div class="job-code-notice full-width d-flex align-center gap-2 p-3 mb-2">
+          <mat-icon class="material-symbols-rounded info-icon">auto_awesome</mat-icon>
+          <span class="notice-text">Job Code will be generated automatically after the job is created.</span>
+        </div>
+
+        <!-- Department dropdown -->
+        <mat-form-field appearance="fill">
+          <mat-label>Department</mat-label>
+          <mat-select formControlName="departmentId" required>
+            @if (isDeptLoading()) {
+              <mat-option disabled>Loading departments...</mat-option>
+            }
+            @for (dept of departments(); track dept.id) {
+              <mat-option [value]="dept.id">{{ dept.name }}</mat-option>
+            }
+          </mat-select>
+          @if (jobForm.get('departmentId')?.hasError('required') && jobForm.get('departmentId')?.touched) {
+            <mat-error>Department is required.</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Employment Type dropdown -->
+        <mat-form-field appearance="fill">
+          <mat-label>Employment Type</mat-label>
+          <mat-select formControlName="employmentType" required>
+            <mat-option [value]="0">Full-Time</mat-option>
+            <mat-option [value]="1">Part-Time</mat-option>
+            <mat-option [value]="2">Contract</mat-option>
+            <mat-option [value]="3">Internship</mat-option>
+          </mat-select>
+          @if (jobForm.get('employmentType')?.hasError('required') && jobForm.get('employmentType')?.touched) {
+            <mat-error>Employment type is required.</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Location -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Location</mat-label>
+          <mat-icon matPrefix class="material-symbols-rounded">location_on</mat-icon>
+          <input matInput formControlName="location" placeholder="e.g. San Francisco, CA or Remote" required>
+          @if (jobForm.get('location')?.hasError('required') && jobForm.get('location')?.touched) {
+            <mat-error>Location is required.</mat-error>
+          }
+          @if (jobForm.get('location')?.hasError('backendError')) {
+            <mat-error>{{ jobForm.get('location')?.getError('backendError') }}</mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </app-card>
+
+    <!-- Section 2: Compensation -->
+    <app-card [hasHeader]="true" id="compensation-section" class="mt-6">
+      <span card-header class="section-card-title d-flex align-center gap-2">
+        <mat-icon class="material-symbols-rounded text-primary">payments</mat-icon>
+        <span>Compensation & Schedule</span>
+      </span>
+      <div card-content class="form-grid-two-col">
+        <!-- Minimum Salary -->
+        <mat-form-field appearance="fill">
+          <mat-label>Minimum Salary ($)</mat-label>
+          <input matInput type="number" formControlName="salaryMin" placeholder="e.g. 80000">
+          @if (jobForm.get('salaryMin')?.hasError('min') || jobForm.get('salaryMin')?.hasError('max')) {
+            <mat-error>Must be between 0 and 10,000,000.</mat-error>
+          }
+          @if (jobForm.get('salaryMin')?.hasError('requiredIfOtherSet')) {
+            <mat-error>Minimum salary is required when max is entered.</mat-error>
+          }
+          @if (jobForm.get('salaryMin')?.hasError('backendError')) {
+            <mat-error>{{ jobForm.get('salaryMin')?.getError('backendError') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Maximum Salary -->
+        <mat-form-field appearance="fill">
+          <mat-label>Maximum Salary ($)</mat-label>
+          <input matInput type="number" formControlName="salaryMax" placeholder="e.g. 120000">
+          @if (jobForm.get('salaryMax')?.hasError('min') || jobForm.get('salaryMax')?.hasError('max')) {
+            <mat-error>Must be between 0 and 10,000,000.</mat-error>
+          }
+          @if (jobForm.get('salaryMax')?.hasError('requiredIfOtherSet')) {
+            <mat-error>Maximum salary is required when min is entered.</mat-error>
+          }
+          @if (jobForm.hasError('salaryRangeInvalid')) {
+            <mat-error>Maximum salary must be greater than or equal to minimum salary.</mat-error>
+          }
+          @if (jobForm.get('salaryMax')?.hasError('backendError')) {
+            <mat-error>{{ jobForm.get('salaryMax')?.getError('backendError') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Closing Date -->
+        <mat-form-field appearance="fill">
+          <mat-label>Closing Date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="closingDate" [min]="minDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          @if (jobForm.get('closingDate')?.hasError('matDatepickerMin')) {
+            <mat-error>Closing date cannot be in the past.</mat-error>
+          }
+          @if (jobForm.get('closingDate')?.hasError('backendError')) {
+            <mat-error>{{ jobForm.get('closingDate')?.getError('backendError') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Hiring Manager placeholder -->
+        <mat-form-field appearance="fill">
+          <mat-label>Hiring Manager</mat-label>
+          <input matInput formControlName="hiringManagerPlaceholder" placeholder="e.g. John Doe (Optional)">
+        </mat-form-field>
+      </div>
+    </app-card>
+
+    <!-- Section 3: Job Description -->
+    <app-card [hasHeader]="true" id="description-section" class="mt-6">
+      <span card-header class="section-card-title d-flex align-center gap-2">
+        <mat-icon class="material-symbols-rounded text-primary">description</mat-icon>
+        <span>Job Description</span>
+      </span>
+      <div card-content>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Role Description</mat-label>
+          <textarea matInput formControlName="description" rows="8" placeholder="Outline the main responsibilities, goals, and culture of the role..." required class="resizable-textarea"></textarea>
+          <mat-hint align="end">{{ jobForm.get('description')?.value?.length || 0 }} characters</mat-hint>
+          @if (jobForm.get('description')?.hasError('required') && jobForm.get('description')?.touched) {
+            <mat-error>Description is required.</mat-error>
+          }
+          @if (jobForm.get('description')?.hasError('backendError')) {
+            <mat-error>{{ jobForm.get('description')?.getError('backendError') }}</mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </app-card>
+
+    <!-- Section 4: Requirements -->
+    <app-card [hasHeader]="true" id="requirements-section" class="mt-6">
+      <span card-header class="section-card-title d-flex align-center gap-2">
+        <mat-icon class="material-symbols-rounded text-primary">fact_check</mat-icon>
+        <span>Requirements & Skills</span>
+      </span>
+      <div card-content>
+        <!-- Required Skills Chips Input -->
+        <div class="mb-4">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Required Skills</mat-label>
+            <mat-chip-grid #chipGrid aria-label="Enter required skills">
+              @for (skill of skills(); track skill) {
+                <mat-chip-row (removed)="removeSkill(skill)">
+                  {{ skill }}
+                  <button matChipRemove aria-label="'remove ' + skill">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip-row>
+              }
+              <input placeholder="Type a skill and press Enter..."
+                     [matChipInputFor]="chipGrid"
+                     (matChipInputTokenEnd)="addSkill($event)">
+            </mat-chip-grid>
+            <mat-hint>Press Enter or comma to add a skill tag.</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Key Qualifications</mat-label>
+          <textarea matInput formControlName="requirements" rows="8" placeholder="Specify education, years of experience, and essential technical criteria..." required class="resizable-textarea"></textarea>
+          <mat-hint align="end">{{ jobForm.get('requirements')?.value?.length || 0 }} characters</mat-hint>
+          @if (jobForm.get('requirements')?.hasError('required') && jobForm.get('requirements')?.touched) {
+            <mat-error>Requirements are required.</mat-error>
+          }
+          @if (jobForm.get('requirements')?.hasError('backendError')) {
+            <mat-error>{{ jobForm.get('requirements')?.getError('backendError') }}</mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </app-card>
+
+    <!-- Section 5: Status (Read-only status card, styled based on mode) -->
+    <app-card [hasHeader]="true" id="publication-section" class="mt-6 mb-20">
+      <span card-header class="section-card-title d-flex align-center gap-2">
+        <mat-icon class="material-symbols-rounded text-primary">publish</mat-icon>
+        <span>Publication Status</span>
+      </span>
+      <div card-content class="publication-status-box d-flex align-start gap-3 p-4">
+        @if (mode === 'create') {
+          <mat-icon class="material-symbols-rounded status-icon">edit_document</mat-icon>
+          <div class="status-description">
+            <span class="status-badge draft mb-2 d-inline-block">Draft</span>
+            <p class="status-explanation m-0">This job posting will be saved as a **Draft**. You can review the details, verify applicant pipelines, and publish this opening to candidates once it is finalized.</p>
+          </div>
+        } @else {
+          <mat-icon class="material-symbols-rounded status-icon">info</mat-icon>
+          <div class="status-description">
+            <span class="status-badge mb-2 d-inline-block" [class]="getStatusClass(currentStatus())">
+              {{ getStatusName(currentStatus()) }}
+            </span>
+            <p class="status-explanation m-0">
+              @if (currentStatus() === 0) {
+                This job is currently a **Draft**. Recruiter reviewers can update details before publishing it to the public board.
+              } @else if (currentStatus() === 1) {
+                This job is currently **Published**. Candidates can view, search, and apply to this opening.
+              } @else if (currentStatus() === 2) {
+                This job is **Closed**. No further applications are accepted, but active candidates remain in review.
+              } @else {
+                This job has been **Archived**. Historic applicant metrics are preserved for reporting.
+              }
+            </p>
+          </div>
+        }
+      </div>
+    </app-card>
+
+  </div>
+
+  <!-- Sticky Bottom Action Bar -->
+  <div class="sticky-action-bar d-flex align-center justify-between"
+       [style.left.px]="layoutService.isMobile() ? 0 : (layoutService.isSidebarCollapsed() ? 72 : 280)">
+    <!-- Validation Status Feedback -->
+    <div class="validation-summary d-flex align-center gap-2">
+      @if (jobForm.valid) {
+        <mat-icon class="material-symbols-rounded text-success">check_circle</mat-icon>
+        <span class="text-success font-medium">All required fields completed</span>
+      } @else {
+        <mat-icon class="material-symbols-rounded text-warning">warning</mat-icon>
+        <span class="text-warning font-medium">{{ getValidationErrorCount() }} validation errors remaining</span>
+      }
+    </div>
+
+    <!-- Actions -->
+    <div class="action-buttons d-flex align-center gap-3">
+      <button mat-button type="button" (click)="onCancel()" [disabled]="isLoading">
+        Cancel
+      </button>
+      <button mat-flat-button color="primary" type="submit" [disabled]="isLoading">
+        @if (isLoading) {
+          <div class="loading-btn d-flex align-center gap-2">
+            <mat-spinner diameter="20" color="accent"></mat-spinner>
+            <span>Saving...</span>
+          </div>
+        } @else {
+          <span>{{ mode === 'create' ? 'Save Draft' : 'Save Changes' }}</span>
+        }
+      </button>
+    </div>
+  </div>
+
+</form>

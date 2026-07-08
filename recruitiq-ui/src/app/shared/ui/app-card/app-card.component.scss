@@ -1,0 +1,36 @@
+@use 'sass:color';
+@use '../../../styles/theme/theme' as theme;
+
+.app-card {
+  display: flex;
+  flex-direction: column;
+  background-color: theme.$surface-bg;
+  border: 1px solid theme.$border-color;
+  border-radius: theme.$radius-lg;
+  box-shadow: theme.$shadow-sm;
+  overflow: hidden;
+  transition: theme.$transition-fast;
+  
+  &.hoverable:hover {
+    box-shadow: theme.$shadow-md;
+    transform: translateY(-2px);
+    border-color: color.adjust(theme.$border-color, $lightness: -4%);
+  }
+}
+
+.card-header {
+  padding: theme.$space-4 theme.$space-6;
+  border-bottom: 1px solid theme.$border-color;
+  background-color: theme.$gray-50;
+}
+
+.card-content {
+  padding: theme.$space-6;
+  flex: 1;
+}
+
+.card-footer {
+  padding: theme.$space-4 theme.$space-6;
+  border-top: 1px solid theme.$border-color;
+  background-color: theme.$gray-50;
+}

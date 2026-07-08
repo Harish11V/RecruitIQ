@@ -1,0 +1,89 @@
+@use '../../../styles/theme/theme' as theme;
+
+.stat-card {
+  background-color: theme.$surface-bg;
+  border: 1px solid theme.$border-color;
+  border-radius: theme.$radius-lg;
+  box-shadow: theme.$shadow-sm;
+  padding: theme.$space-6;
+  display: flex;
+  flex-direction: column;
+  gap: theme.$space-4;
+}
+
+.stat-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+  gap: theme.$space-1;
+}
+
+.stat-title {
+  font-size: theme.$font-size-sm;
+  font-weight: theme.$font-weight-medium;
+  color: theme.$gray-500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: theme.$font-size-3xl;
+  font-weight: theme.$font-weight-bold;
+  color: theme.$gray-900;
+  line-height: 1.2;
+}
+
+.stat-icon-wrapper {
+  background-color: theme.$gray-100;
+  color: theme.$gray-700;
+  padding: theme.$space-2;
+  border-radius: theme.$radius-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  .stat-icon {
+    font-size: 24px;
+    height: 24px;
+    width: 24px;
+  }
+}
+
+.stat-trend {
+  display: flex;
+  align-items: center;
+  gap: theme.$space-1;
+  font-size: theme.$font-size-xs;
+  font-weight: theme.$font-weight-medium;
+
+  .trend-icon {
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .trend-desc {
+    color: theme.$gray-400;
+    margin-left: 2px;
+  }
+
+  &.up {
+    color: #10b981; // Green-500
+    .trend-icon { color: #10b981; }
+  }
+
+  &.down {
+    color: #ef4444; // Red-500
+    .trend-icon { color: #ef4444; }
+  }
+
+  &.neutral {
+    color: theme.$gray-500;
+    .trend-icon { color: theme.$gray-500; }
+  }
+}

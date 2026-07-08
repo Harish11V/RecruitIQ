@@ -1,0 +1,40 @@
+@use '../../../styles/theme/theme' as theme;
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: theme.$space-3;
+  margin-bottom: theme.$space-6;
+  
+  @include theme.desktop {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.title-section {
+  display: flex;
+  flex-direction: column;
+  gap: theme.$space-1;
+}
+
+.header-title {
+  font-size: theme.$font-size-2xl;
+  font-weight: theme.$font-weight-semibold;
+  color: theme.$gray-900;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.header-description {
+  font-size: theme.$font-size-sm;
+  color: theme.$gray-500;
+  margin: 0;
+}
+
+.actions-section {
+  display: flex;
+  align-items: center;
+  gap: theme.$space-3;
+}

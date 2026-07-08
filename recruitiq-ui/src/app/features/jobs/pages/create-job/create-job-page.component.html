@@ -1,0 +1,18 @@
+<app-page-container>
+  <app-section-header title="Create Job" description="Define and launch a new job opening.">
+    <button actions mat-stroked-button routerLink="/admin/jobs">
+      <mat-icon class="material-symbols-rounded">arrow_back</mat-icon>
+      <span>Back to list</span>
+    </button>
+  </app-section-header>
+
+  <!-- Reusable Form Component -->
+  <div class="mt-6">
+    <app-job-form
+      mode="create"
+      [isLoading]="isLoading()"
+      (save)="onSave($event)"
+      (cancel)="onCancel()">
+    </app-job-form>
+  </div>
+</app-page-container>

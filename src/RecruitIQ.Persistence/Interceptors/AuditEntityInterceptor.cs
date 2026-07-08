@@ -35,17 +35,27 @@ public class AuditEntityInterceptor : SaveChangesInterceptor
 
         var userId = _currentUserService.UserId ?? "System";
 
+        var isSqlite = context.Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite";
+
         foreach (var entry in context.ChangeTracker.Entries<BaseEntity>())
         {
             if (entry.State == EntityState.Added)
             {
                 entry.Entity.CreatedAt = DateTime.UtcNow;
                 entry.Entity.CreatedBy = userId;
+                if (isSqlite)
+                {
+                    entry.Entity.RowVersion = Guid.NewGuid().ToByteArray();
+                }
             }
             else if (entry.State == EntityState.Modified)
             {
                 entry.Entity.UpdatedAt = DateTime.UtcNow;
                 entry.Entity.UpdatedBy = userId;
+                if (isSqlite)
+                {
+                    entry.Entity.RowVersion = Guid.NewGuid().ToByteArray();
+                }
             }
         }
     }

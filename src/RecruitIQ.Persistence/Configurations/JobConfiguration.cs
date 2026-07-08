@@ -41,6 +41,20 @@ public class JobConfiguration : BaseEntityConfiguration<Job>
         builder.Property(j => j.SalaryMax)
             .HasColumnType("decimal(18,2)");
 
+        builder.Property(j => j.JobCode)
+            .HasMaxLength(50)
+            .IsRequired();
+
+        builder.Property(j => j.Slug)
+            .HasMaxLength(250)
+            .IsRequired();
+
+        builder.Property(j => j.PublishedAt)
+            .HasColumnType("datetime2");
+
+        builder.Property(j => j.ClosingDate)
+            .HasColumnType("datetime2");
+
         builder.HasOne(j => j.Company)
             .WithMany(c => c.Jobs)
             .HasForeignKey(j => j.CompanyId)

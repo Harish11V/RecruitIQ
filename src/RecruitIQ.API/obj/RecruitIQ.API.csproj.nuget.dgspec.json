@@ -1230,6 +1230,9 @@
             "projectReferences": {
               "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Common\\RecruitIQ.Common.csproj": {
                 "projectPath": "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Common\\RecruitIQ.Common.csproj"
+              },
+              "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Domain\\RecruitIQ.Domain.csproj": {
+                "projectPath": "C:\\Projects\\RecruitIQ\\src\\RecruitIQ.Domain\\RecruitIQ.Domain.csproj"
               }
             }
           }

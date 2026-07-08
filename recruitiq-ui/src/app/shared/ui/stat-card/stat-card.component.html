@@ -1,0 +1,29 @@
+<div class="stat-card">
+  <div class="stat-main">
+    <div class="stat-info">
+      <span class="stat-title">{{ title() }}</span>
+      <span class="stat-value">{{ value() }}</span>
+    </div>
+    @if (icon()) {
+      <div class="stat-icon-wrapper">
+        <mat-icon class="material-symbols-rounded stat-icon">{{ icon() }}</mat-icon>
+      </div>
+    }
+  </div>
+
+  @if (trend() && trendValue()) {
+    <div class="stat-trend" [class]="trend()">
+      <mat-icon class="material-symbols-rounded trend-icon">
+        @if (trend() === 'up') {
+          trending_up
+        } @else if (trend() === 'down') {
+          trending_down
+        } @else {
+          trending_flat
+        }
+      </mat-icon>
+      <span class="trend-text">{{ trendValue() }}</span>
+      <span class="trend-desc">vs last month</span>
+    </div>
+  }
+</div>

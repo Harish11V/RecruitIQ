@@ -37,6 +37,8 @@ public interface IRecruitIQDbContext
     void Add<TEntity>(TEntity entity) where TEntity : class;
     void Update<TEntity>(TEntity entity) where TEntity : class;
     void Remove<TEntity>(TEntity entity) where TEntity : class;
+    IQueryable<TEntity> QueryReadOnly<TEntity>() where TEntity : class;
+    void SetOriginalRowVersion<TEntity>(TEntity entity, byte[] rowVersion) where TEntity : RecruitIQ.Domain.Base.BaseEntity;
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

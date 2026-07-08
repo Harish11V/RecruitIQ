@@ -1,0 +1,28 @@
+@use '../../../styles/theme/theme' as theme;
+
+.page-container {
+  display: block;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: theme.$space-4;
+  
+  @include theme.desktop {
+    padding: theme.$space-6;
+  }
+}
+
+.fade-in {
+  animation: fadeIn theme.$duration-normal theme.$ease-decelerate forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

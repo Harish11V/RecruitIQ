@@ -1,0 +1,211 @@
+@use '../../../../styles/theme/theme' as theme;
+
+.entity-workspace-header-layout {
+  padding-bottom: theme.$space-4;
+  border-bottom: 1px solid theme.$border-color;
+  margin-bottom: theme.$space-4;
+
+  .entity-workspace-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: theme.$gray-900;
+    letter-spacing: -0.5px;
+  }
+
+  .entity-workspace-subtitle {
+    font-size: 14px;
+    color: theme.$gray-500;
+    font-weight: 500;
+    
+    .bullet-divider {
+      color: theme.$gray-300;
+    }
+  }
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  &.draft {
+    background-color: rgba(100, 116, 139, 0.08);
+    color: theme.$gray-600;
+    border: 1px solid rgba(100, 116, 139, 0.15);
+  }
+
+  &.published {
+    background-color: rgba(16, 185, 129, 0.08);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.15);
+  }
+
+  &.closed {
+    background-color: rgba(239, 68, 68, 0.08);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.15);
+  }
+
+  &.archived {
+    background-color: rgba(245, 158, 11, 0.08);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.15);
+  }
+}
+
+.details-layout-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: theme.$space-6;
+
+  @include theme.desktop {
+    grid-template-columns: 2.5fr 1fr;
+  }
+}
+
+.form-grid-two-col {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: theme.$space-4;
+
+  @include theme.tablet {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .full-width {
+    grid-column: 1 / -1;
+  }
+}
+
+.section-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: theme.$gray-800;
+
+  .text-primary {
+    color: #3f51b5;
+  }
+}
+
+.required-skills-section {
+  border-top: 1px solid theme.$border-color;
+  padding-top: theme.$space-4;
+
+  .skills-label {
+    font-size: 11px;
+    color: theme.$gray-400;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+  }
+}
+
+.skill-chip-tag {
+  background-color: theme.$gray-50;
+  border: 1px solid theme.$border-color;
+  color: theme.$gray-700;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  transition: all 150ms ease-in-out;
+
+  &:hover {
+    background-color: theme.$gray-100;
+    border-color: theme.$gray-300;
+  }
+}
+
+.formatted-text-block {
+  white-space: pre-line;
+  font-size: 14px;
+  line-height: 1.6;
+  color: theme.$gray-700;
+}
+
+.error-state-card {
+  text-align: center;
+  background-color: theme.$surface-bg;
+  border: 1px solid theme.$border-color;
+  border-radius: theme.$radius-lg;
+
+  .error-icon {
+    font-size: 48px;
+    height: 48px;
+    width: 48px;
+    color: #ef4444;
+  }
+
+  .error-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: theme.$gray-900;
+    margin: 8px 0 0 0;
+  }
+
+  .error-desc {
+    font-size: 13px;
+    color: theme.$gray-500;
+    max-width: 400px;
+    margin: 4px 0 16px 0;
+  }
+}
+
+// Skeleton styling
+.skeleton-header-box {
+  background-color: theme.$surface-bg;
+  border: 1px solid theme.$border-color;
+  border-radius: theme.$radius-lg;
+  height: 90px;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.06) 20%, rgba(255,255,255,0.1) 60%, rgba(255,255,255,0) 100%);
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+.skeleton-line {
+  height: 12px;
+  background-color: theme.$gray-200;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.06) 20%, rgba(255,255,255,0.1) 60%, rgba(255,255,255,0) 100%);
+    animation: shimmer 1.5s infinite;
+  }
+
+  &.title { width: 40%; height: 16px; }
+  &.value { width: 25%; height: 20px; }
+  &.text-medium { width: 140px; }
+  &.full-width { width: 100%; }
+  &.action { width: 80px; height: 36px; border-radius: 6px; }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}

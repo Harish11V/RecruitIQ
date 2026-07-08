@@ -1,0 +1,9 @@
+<div class="detail-row d-flex align-start gap-3 py-2">
+  @if (icon) {
+    <mat-icon class="detail-icon material-symbols-rounded">{{ icon }}</mat-icon>
+  }
+  <div class="detail-content d-flex flex-column">
+    <span class="detail-label">{{ label }}</span>
+    <span class="detail-value" [class.multiline]="isMultiline">{{ value !== undefined && value !== null && value !== '' ? value : '—' }}</span>
+  </div>
+</div>

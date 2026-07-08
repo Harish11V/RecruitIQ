@@ -1,0 +1,330 @@
+@use '../../../../styles/theme/theme' as theme;
+
+.login-layout-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: #020617;
+}
+
+.animated-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.15;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.orb-1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, #3f51b5 0%, rgba(63, 81, 181, 0) 70%);
+  top: -100px;
+  left: -100px;
+  animation-name: floatOrb1;
+}
+
+.orb-2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #009688 0%, rgba(0, 150, 136, 0) 70%);
+  bottom: -150px;
+  right: -150px;
+  animation-name: floatOrb2;
+}
+
+.mouse-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 600px;
+  height: 600px;
+  margin-top: -300px;
+  margin-left: -300px;
+  background: radial-gradient(circle, rgba(93, 111, 212, 0.08) 0%, rgba(93, 111, 212, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+
+.login-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 440px;
+  margin: 16px;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.branding-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  
+  .brand-logo {
+    font-size: 48px;
+    height: 48px;
+    width: 48px;
+    color: #38bdf8;
+    margin-bottom: 8px;
+  }
+  
+  .brand-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: 0.5px;
+  }
+  
+  .brand-subtitle {
+    font-size: 13px;
+    color: #94a3b8;
+    margin: 4px 0 0 0;
+  }
+
+  .version-badge {
+    font-size: 11px;
+    color: #64748b;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 2px 8px;
+    border-radius: 99px;
+    margin-top: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+}
+
+.welcome-text {
+  text-align: center;
+  
+  h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+  }
+  
+  p {
+    font-size: 13px;
+    color: #64748b;
+    margin: 4px 0 0 0;
+  }
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-field {
+  width: 100%;
+  
+  ::ng-deep {
+    .mat-mdc-text-field-wrapper {
+      background-color: rgba(255, 255, 255, 0.03) !important;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      transition: all 150ms ease-in-out;
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.05) !important;
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+    
+    .mat-mdc-form-field-flex {
+      padding-top: 8px !important;
+    }
+    
+    .mat-mdc-form-field-focus-indicator {
+      display: none;
+    }
+    
+    .mat-mdc-form-field-infix {
+      padding-bottom: 8px !important;
+    }
+    
+    .mdc-text-field--focused {
+      .mat-mdc-text-field-wrapper {
+        border-color: #3b82f6 !important;
+        background-color: rgba(255, 255, 255, 0.05) !important;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+      }
+    }
+
+    input {
+      color: #ffffff !important;
+      caret-color: #3b82f6 !important;
+    }
+
+    .mat-mdc-form-field-label {
+      color: #94a3b8 !important;
+    }
+
+    .mat-mdc-form-field-icon-prefix, .mat-mdc-form-field-icon-suffix {
+      color: #64748b !important;
+    }
+  }
+}
+
+.caps-lock-warning {
+  color: #fbbf24;
+  font-size: 12px;
+  background-color: rgba(251, 191, 36, 0.1);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(251, 191, 36, 0.15);
+
+  .warning-icon {
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+    color: #fbbf24;
+  }
+}
+
+.form-actions {
+  color: #94a3b8;
+  font-size: 13px;
+  
+  ::ng-deep .mdc-label {
+    color: #94a3b8 !important;
+    font-size: 13px;
+  }
+  
+  ::ng-deep .mdc-checkbox {
+    padding: 8px !important;
+    margin-left: -8px;
+  }
+
+  .forgot-password-link {
+    color: #3b82f6;
+    font-weight: 500;
+    transition: color 150ms ease-in-out;
+    
+    &.disabled-link {
+      opacity: 0.6;
+      cursor: not-allowed;
+      pointer-events: none;
+      color: #64748b;
+    }
+  }
+}
+
+.submit-button {
+  width: 100%;
+  height: 48px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+  transition: all 150ms ease-in-out !important;
+  
+  &:not([disabled]):hover {
+    background-color: #2563eb !important;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  }
+  
+  &[disabled] {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: rgba(255, 255, 255, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  ::ng-deep .mat-mdc-progress-spinner circle {
+    stroke: #ffffff !important;
+  }
+}
+
+.branding-footer {
+  text-align: center;
+  font-size: 11px;
+  color: #475569;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  padding-top: 16px;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  p { margin: 0; }
+  span { font-weight: 500; color: #64748b; }
+}
+
+.fade-up {
+  opacity: 0;
+  animation: fadeUp 600ms theme.$ease-decelerate forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatOrb1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(60px, 40px) scale(1.1);
+  }
+}
+
+@keyframes floatOrb2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1.1);
+  }
+  50% {
+    transform: translate(-40px, -60px) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up {
+    animation: none;
+    opacity: 1;
+  }
+  .gradient-orb {
+    animation: none !important;
+  }
+  .mouse-glow {
+    display: none !important;
+  }
+  .submit-button {
+    transition: none !important;
+  }
+}

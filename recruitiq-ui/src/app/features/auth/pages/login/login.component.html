@@ -1,0 +1,87 @@
+<div class="login-layout-container" (mousemove)="onMouseMove($event)">
+  <!-- Modern Animated Background -->
+  <div class="animated-bg">
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+    <div class="mouse-glow" [style.transform]="mouseGlowTransform"></div>
+  </div>
+
+  <!-- Centered Glassmorphic Login Card -->
+  <div class="login-card fade-up">
+    <!-- Branding Header -->
+    <div class="branding-section">
+      <mat-icon class="brand-logo">supervised_user_circle</mat-icon>
+      <h1 class="brand-title">RecruitIQ</h1>
+      <p class="brand-subtitle">Enterprise Applicant Tracking System</p>
+      <span class="version-badge">v{{ appVersion }}</span>
+    </div>
+
+    <div class="welcome-text">
+      <h2>Welcome Back</h2>
+      <p>Sign in to continue to your workspace.</p>
+    </div>
+
+    <!-- Login Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      
+      <!-- Email Field -->
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Email Address</mat-label>
+        <mat-icon matPrefix>mail</mat-icon>
+        <input matInput type="email" formControlName="email" placeholder="name@company.com" autocomplete="email" required>
+        @if (loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched) {
+          <mat-error>Email is required.</mat-error>
+        }
+        @if (loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched) {
+          <mat-error>Please enter a valid email address.</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Password Field -->
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Password</mat-label>
+        <mat-icon matPrefix>lock</mat-icon>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" autocomplete="current-password" (keydown)="checkCapsLock($event)" (keyup)="checkCapsLock($event)" required>
+        <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="hidePassword ? 'Show password' : 'Hide password'" [attr.aria-pressed]="!hidePassword">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        @if (loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched) {
+          <mat-error>Password is required.</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Caps Lock Warning -->
+      @if (isCapsLockOn) {
+        <div class="caps-lock-warning d-flex align-center gap-2">
+          <mat-icon class="warning-icon">warning</mat-icon>
+          <span>Caps Lock is enabled.</span>
+        </div>
+      }
+
+      <!-- Form Actions (Remember Me & Forgot Password) -->
+      <div class="form-actions d-flex align-center justify-between">
+        <mat-checkbox formControlName="rememberMe" color="primary">Remember Me</mat-checkbox>
+        <a href="javascript:void(0)" class="forgot-password-link disabled-link">Forgot Password?</a>
+      </div>
+
+      <!-- Submit Button -->
+      <button mat-flat-button color="primary" type="submit" class="submit-button" [disabled]="loginForm.invalid || isLoading()">
+        @if (isLoading()) {
+          <div class="loading-wrapper d-flex align-center justify-center gap-2">
+            <mat-spinner diameter="20" color="accent"></mat-spinner>
+            <span>Authenticating...</span>
+          </div>
+        } @else {
+          <span>Sign In</span>
+        }
+      </button>
+
+    </form>
+
+    <!-- Branding Footer -->
+    <div class="branding-footer">
+      <p>&copy; 2026 RecruitIQ. All rights reserved.</p>
+      <span>Powered by RecruitIQ</span>
+    </div>
+  </div>
+</div>

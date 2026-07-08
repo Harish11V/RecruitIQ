@@ -1,0 +1,208 @@
+<app-page-container>
+  
+  <!-- Loading skeleton loaders -->
+  @if (isLoading()) {
+    <app-section-header title="Loading Job..." description="Fetching latest job details."></app-section-header>
+    
+    <!-- Skeleton Entity Header -->
+    <div class="skeleton-header-box d-flex align-center justify-between p-6 mt-6">
+      <div class="skeleton-header-left">
+        <div class="skeleton-line title mb-2"></div>
+        <div class="skeleton-line text-medium"></div>
+      </div>
+      <div class="skeleton-header-right">
+        <div class="skeleton-line action"></div>
+      </div>
+    </div>
+
+    <!-- Skeleton Grid Layout -->
+    <div class="details-layout-grid mt-6">
+      <div class="details-left-column">
+        <!-- Summary Skeleton -->
+        <app-card [hasHeader]="false">
+          <div card-content class="form-grid-two-col">
+            @for (row of [1, 2, 3, 4, 5, 6]; track row) {
+              <div class="skeleton-line value my-2"></div>
+            }
+          </div>
+        </app-card>
+
+        <!-- Description Skeleton -->
+        <app-card [hasHeader]="false" class="mt-6">
+          <div card-content>
+            <div class="skeleton-line title mb-3"></div>
+            <div class="skeleton-line full-width mb-2"></div>
+            <div class="skeleton-line full-width mb-2"></div>
+            <div class="skeleton-line text-medium"></div>
+          </div>
+        </app-card>
+      </div>
+
+      <div class="details-right-column">
+        <!-- Metadata Skeleton -->
+        <app-card [hasHeader]="false">
+          <div card-content>
+            <div class="skeleton-line title mb-3"></div>
+            <div class="skeleton-line text-medium mb-2"></div>
+            <div class="skeleton-line text-medium"></div>
+          </div>
+        </app-card>
+      </div>
+    </div>
+  }
+
+  <!-- Error / Empty State -->
+  @else if (error() || !job()) {
+    <app-section-header title="Job Details" description="View information for a specific job.">
+      <button actions mat-stroked-button routerLink="/admin/jobs">
+        <mat-icon class="material-symbols-rounded">arrow_back</mat-icon>
+        <span>Back to list</span>
+      </button>
+    </app-section-header>
+
+    <div class="error-state-card d-flex flex-column align-center justify-center p-8 gap-3 mt-6">
+      <mat-icon class="error-icon material-symbols-rounded">error_outline</mat-icon>
+      <h3 class="error-title">Job Not Found</h3>
+      <p class="error-desc">{{ error() || 'The requested job posting does not exist or has been deleted.' }}</p>
+      
+      <div class="error-actions d-flex gap-2">
+        <button mat-stroked-button routerLink="/admin/jobs">
+          <mat-icon class="material-symbols-rounded">arrow_back</mat-icon>
+          <span>Back to Jobs</span>
+        </button>
+        <button mat-flat-button color="primary" (click)="onRetry()">
+          <mat-icon class="material-symbols-rounded">refresh</mat-icon>
+          <span>Retry</span>
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- Actual Job Details Content -->
+  @else {
+    <!-- Reusable Entity Header Layout -->
+    <div class="entity-workspace-header-layout d-flex align-center justify-between wrap gap-4">
+      <div class="entity-title-section d-flex flex-column">
+        <div class="entity-header-top d-flex align-center gap-3 wrap">
+          <h1 class="entity-workspace-title m-0">{{ job()?.title }}</h1>
+          <span class="status-badge" [class]="getStatusClass(job()?.status)">
+            {{ getStatusName(job()?.status) }}
+          </span>
+        </div>
+        <span class="entity-workspace-subtitle d-flex align-center gap-2 mt-1">
+          <span class="font-mono text-medium">{{ job()?.jobCode }}</span>
+          <span class="bullet-divider">&bull;</span>
+          <span>{{ job()?.department?.name }}</span>
+        </span>
+      </div>
+
+      <!-- Header Actions Toolbar -->
+      <div class="entity-actions-toolbar d-flex align-center gap-2">
+        <button mat-stroked-button routerLink="/admin/jobs">
+          <mat-icon class="material-symbols-rounded">arrow_back</mat-icon>
+          <span>Back</span>
+        </button>
+        <button mat-stroked-button [routerLink]="['/admin/jobs', job()?.jobId, 'edit']">
+          <mat-icon class="material-symbols-rounded">edit</mat-icon>
+          <span>Edit Job</span>
+        </button>
+        
+        @if (job()?.status === 0) {
+          <button mat-flat-button color="primary" (click)="onPublish()">
+            <mat-icon class="material-symbols-rounded">rocket_launch</mat-icon>
+            <span>Publish</span>
+          </button>
+        }
+        @if (job()?.status === 1) {
+          <button mat-flat-button color="accent" (click)="onArchive()">
+            <mat-icon class="material-symbols-rounded">archive</mat-icon>
+            <span>Archive</span>
+          </button>
+        }
+        @if (job()?.status === 3) {
+          <button mat-flat-button color="warn" (click)="onDelete()">
+            <mat-icon class="material-symbols-rounded">delete_forever</mat-icon>
+            <span>Delete</span>
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Details Column Grid -->
+    <div class="details-layout-grid mt-6">
+      
+      <!-- Left Column: Details Summary, Description & Requirements -->
+      <div class="details-left-column">
+        
+        <!-- Summary Card -->
+        <app-card [hasHeader]="false">
+          <div card-content class="form-grid-two-col">
+            <app-detail-row label="Department" [value]="job()?.department?.name" icon="lan"></app-detail-row>
+            <app-detail-row label="Location" [value]="job()?.location" icon="location_on"></app-detail-row>
+            <app-detail-row label="Employment Type" [value]="getEmploymentTypeName(job()?.employmentType)" icon="work"></app-detail-row>
+            <app-detail-row label="Salary Range" [value]="formatSalaryRange(job()?.salaryMin, job()?.salaryMax)" icon="payments"></app-detail-row>
+            <app-detail-row label="Hiring Manager" [value]="job()?.hiringManager?.fullName" icon="person"></app-detail-row>
+            <app-detail-row label="Closing Date" [value]="job()?.closingDate ? (job()?.closingDate | date:'mediumDate') : 'Open'" icon="event_busy"></app-detail-row>
+
+            <!-- Required Skills Chips -->
+            @if (job()?.requiredSkills && job()!.requiredSkills.length > 0) {
+              <div class="full-width required-skills-section mt-2">
+                <span class="skills-label d-block mb-2">Required Skills</span>
+                <div class="skills-chips-container d-flex wrap gap-2">
+                  @for (skill of job()?.requiredSkills; track skill.id) {
+                    <span class="skill-chip-tag">{{ skill.name }}</span>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        </app-card>
+
+        <!-- Description Card -->
+        <app-card [hasHeader]="true" class="mt-6">
+          <span card-header class="section-card-title d-flex align-center gap-2">
+            <mat-icon class="material-symbols-rounded text-primary">description</mat-icon>
+            <span>Role Description</span>
+          </span>
+          <div card-content class="formatted-text-block">
+            {{ job()?.description }}
+          </div>
+        </app-card>
+
+        <!-- Requirements Card -->
+        <app-card [hasHeader]="true" class="mt-6">
+          <span card-header class="section-card-title d-flex align-center gap-2">
+            <mat-icon class="material-symbols-rounded text-primary">fact_check</mat-icon>
+            <span>Key Qualifications & Requirements</span>
+          </span>
+          <div card-content class="formatted-text-block">
+            {{ job()?.requirements }}
+          </div>
+        </app-card>
+
+      </div>
+
+      <!-- Right Column: Audit Metadata -->
+      <div class="details-right-column">
+        
+        <!-- Metadata Info Card -->
+        <app-card [hasHeader]="true">
+          <span card-header class="section-card-title d-flex align-center gap-2">
+            <mat-icon class="material-symbols-rounded text-primary">analytics</mat-icon>
+            <span>Activity & History</span>
+          </span>
+          <div card-content class="d-flex flex-column gap-3">
+            <app-detail-row label="Created Date" [value]="job()?.createdAt | date:'medium'"></app-detail-row>
+            
+            @if (job()?.publishedAt) {
+              <app-detail-row label="Published Date" [value]="job()?.publishedAt | date:'medium'"></app-detail-row>
+            }
+          </div>
+        </app-card>
+
+      </div>
+
+    </div>
+  }
+
+</app-page-container>

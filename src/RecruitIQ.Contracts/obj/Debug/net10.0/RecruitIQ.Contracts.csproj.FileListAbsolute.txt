@@ -14,3 +14,5 @@ C:\Projects\RecruitIQ\src\RecruitIQ.Contracts\obj\Debug\net10.0\refint\RecruitIQ
 C:\Projects\RecruitIQ\src\RecruitIQ.Contracts\obj\Debug\net10.0\RecruitIQ.Contracts.pdb
 C:\Projects\RecruitIQ\src\RecruitIQ.Contracts\obj\Debug\net10.0\ref\RecruitIQ.Contracts.dll
 C:\Projects\RecruitIQ\src\RecruitIQ.Contracts\obj\Debug\net10.0\RecruitIQ.Contracts.sourcelink.json
+C:\Projects\RecruitIQ\src\RecruitIQ.Contracts\bin\Debug\net10.0\RecruitIQ.Domain.dll
+C:\Projects\RecruitIQ\src\RecruitIQ.Contracts\bin\Debug\net10.0\RecruitIQ.Domain.pdb
