@@ -510,3 +510,4 @@ C:\Projects\RecruitIQ\tests\RecruitIQ.IntegrationTests\bin\Debug\net10.0\refs\Sy
 C:\Projects\RecruitIQ\tests\RecruitIQ.IntegrationTests\bin\Debug\net10.0\refs\WindowsBase.dll
 C:\Projects\RecruitIQ\tests\RecruitIQ.IntegrationTests\bin\Debug\net10.0\Microsoft.AspNetCore.Mvc.Testing.dll
 C:\Projects\RecruitIQ\tests\RecruitIQ.IntegrationTests\bin\Debug\net10.0\Microsoft.AspNetCore.TestHost.dll
+C:\Projects\RecruitIQ\tests\RecruitIQ.IntegrationTests\bin\Debug\net10.0\RecruitIQ.API.staticwebassets.runtime.json

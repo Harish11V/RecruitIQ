@@ -1,0 +1,146 @@
+<form [formGroup]="formGroup()" (ngSubmit)="onSubmit()" class="candidate-form-layout d-flex flex-column gap-6">
+
+  <!-- Basic Information Card -->
+  <app-card [title]="'Basic Information'">
+    <div card-content class="p-4 grid-fields-2">
+      
+      <!-- First Name -->
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" placeholder="Enter first name" required max-length="50">
+        <mat-error *ngIf="formGroup().get('firstName')?.hasError('required')">
+          First name is required.
+        </mat-error>
+        <mat-error *ngIf="formGroup().get('firstName')?.hasError('maxlength')">
+          First name cannot exceed 50 characters.
+        </mat-error>
+        <mat-hint align="end">
+          {{ formGroup().get('firstName')?.value?.length || 0 }}/50
+        </mat-hint>
+      </mat-form-field>
+
+      <!-- Last Name -->
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" placeholder="Enter last name" required max-length="50">
+        <mat-error *ngIf="formGroup().get('lastName')?.hasError('required')">
+          Last name is required.
+        </mat-error>
+        <mat-error *ngIf="formGroup().get('lastName')?.hasError('maxlength')">
+          Last name cannot exceed 50 characters.
+        </mat-error>
+        <mat-hint align="end">
+          {{ formGroup().get('lastName')?.value?.length || 0 }}/50
+        </mat-hint>
+      </mat-form-field>
+
+      <!-- Professional Title -->
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Professional Title</mat-label>
+        <input matInput formControlName="title" placeholder="e.g. Senior .NET Developer">
+        <mat-hint>Job role or professional designation</mat-hint>
+      </mat-form-field>
+
+      <!-- Status (Read-only for Create, or dynamic later) -->
+      <div class="status-field-container">
+        @if (!isEditMode()) {
+          <mat-form-field appearance="outline" class="w-100 disabled-field">
+            <mat-label>Status</mat-label>
+            <input matInput value="New" [readonly]="true">
+          </mat-form-field>
+          <p class="status-explanation text-muted m-0 font-12">
+            Candidates are created with <strong>New</strong> status.
+          </p>
+        } @else {
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option [value]="0">New</mat-option>
+              <mat-option [value]="1">Available</mat-option>
+              <mat-option [value]="2">Shortlisted</mat-option>
+              <mat-option [value]="3">Interviewing</mat-option>
+              <mat-option [value]="4">Offered</mat-option>
+              <mat-option [value]="5">Hired</mat-option>
+              <mat-option [value]="6">Rejected</mat-option>
+              <mat-option [value]="7">Inactive</mat-option>
+            </mat-select>
+          </mat-form-field>
+        }
+      </div>
+
+    </div>
+  </app-card>
+
+  <!-- Contact Information Card -->
+  <app-card [title]="'Contact Details'">
+    <div card-content class="p-4 grid-fields-2">
+      
+      <!-- Email Address -->
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Email Address</mat-label>
+        <input matInput type="email" formControlName="email" placeholder="e.g. john.smith@email.com" required>
+        <mat-icon matPrefix class="material-symbols-rounded text-muted mr-1">mail</mat-icon>
+        <mat-error *ngIf="formGroup().get('email')?.hasError('required')">
+          Email address is required.
+        </mat-error>
+        <mat-error *ngIf="formGroup().get('email')?.hasError('email')">
+          Please enter a valid email address.
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Phone Number -->
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Phone Number</mat-label>
+        <input matInput type="tel" formControlName="phoneNumber" placeholder="e.g. +91 99999 99999">
+        <mat-icon matPrefix class="material-symbols-rounded text-muted mr-1">phone</mat-icon>
+      </mat-form-field>
+
+      <!-- LinkedIn URL -->
+      <mat-form-field appearance="outline" class="w-100 grid-span-2">
+        <mat-label>LinkedIn Profile URL</mat-label>
+        <input matInput type="url" formControlName="linkedInUrl" placeholder="e.g. https://linkedin.com/in/johnsmith">
+        <mat-icon matPrefix class="material-symbols-rounded text-muted mr-1">link</mat-icon>
+        <mat-error *ngIf="formGroup().get('linkedInUrl')?.hasError('pattern')">
+          Please enter a link containing 'linkedin.com'.
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+  </app-card>
+
+  <!-- Professional Card -->
+  <app-card [title]="'Professional Details'">
+    <div card-content class="p-4">
+      <div class="max-w-480">
+        <!-- Years of Experience -->
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Years of Experience</mat-label>
+          <input matInput type="number" formControlName="yearsOfExperience" min="0" max="50" placeholder="e.g. 5">
+          <mat-icon matPrefix class="material-symbols-rounded text-muted mr-1">grade</mat-icon>
+          <mat-error *ngIf="formGroup().get('yearsOfExperience')?.hasError('min') || formGroup().get('yearsOfExperience')?.hasError('max')">
+            Years of experience must be between 0 and 50.
+          </mat-error>
+          <mat-hint>Estimated years of professional experience</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+  </app-card>
+
+  <!-- Future Resume Informational Card -->
+  <app-card [title]="'Resume Attachment'">
+    <div card-content class="p-4">
+      <div class="info-card-box p-4 rounded d-flex align-start gap-3">
+        <mat-icon class="material-symbols-rounded text-primary font-32">info</mat-icon>
+        <div class="d-flex flex-column">
+          <h4 class="info-title font-semibold m-0 text-primary">No resume has been uploaded yet</h4>
+          <p class="info-desc text-muted mt-1 mb-0 font-13">
+            Resume uploading widgets and AI parsing pipelines will be integrated in <strong>Sprint 9.5</strong>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </app-card>
+
+  <!-- Form Submit Trigger (hidden, triggered by sticky footer action buttons) -->
+  <button type="submit" id="candidateFormSubmitBtn" class="d-none"></button>
+</form>

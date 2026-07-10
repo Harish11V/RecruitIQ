@@ -7,4 +7,5 @@ public record UpdateCompanySettingsCommand(
     string Theme,
     string Timezone,
     int DefaultInterviewDuration,
-    string? AllowedEmailDomain) : IRequest<Result>;
+    string? AllowedEmailDomain,
+    byte[] RowVersion) : IRequest<Result>;

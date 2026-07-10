@@ -1,0 +1,33 @@
+@use '../../../styles/theme/theme' as theme;
+
+.entity-header-wrapper {
+  background-color: #ffffff;
+  border: 1px solid rgba(100, 116, 139, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  width: 100%;
+
+  .entity-title {
+    font-size: 20px;
+    color: theme.$gray-900;
+    line-height: 1.2;
+
+    @include theme.mobile {
+      font-size: 18px;
+    }
+  }
+
+  .entity-subtitle {
+    font-size: 13px;
+    color: theme.$gray-500;
+  }
+
+  .entity-actions-block {
+    @include theme.mobile {
+      width: 100%;
+      justify-content: flex-start;
+      margin-top: theme.$space-2;
+    }
+  }
+}

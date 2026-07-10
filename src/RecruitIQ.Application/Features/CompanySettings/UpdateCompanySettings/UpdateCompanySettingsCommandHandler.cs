@@ -54,6 +54,8 @@ public class UpdateCompanySettingsCommandHandler : IRequestHandler<UpdateCompany
         else
         {
             _context.Update(settings);
+            // Apply concurrency check original value
+            _context.SetOriginalRowVersion(settings, request.RowVersion);
         }
 
         // Activity log
@@ -74,7 +76,14 @@ public class UpdateCompanySettingsCommandHandler : IRequestHandler<UpdateCompany
         };
         _context.Add(activity);
 
-        await _context.SaveChangesAsync(cancellationToken);
+        try
+        {
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+        catch (Exception ex) when (ex.GetType().Name == "DbUpdateConcurrencyException")
+        {
+            return Result.Failure("A concurrency conflict occurred. The settings have been modified by another administrator.");
+        }
 
         return Result.Success();
     }

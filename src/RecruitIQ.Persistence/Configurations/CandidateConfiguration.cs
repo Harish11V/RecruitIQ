@@ -11,6 +11,10 @@ public class CandidateConfiguration : BaseEntityConfiguration<Candidate>
     {
         base.Configure(builder);
 
+        builder.Property(c => c.CandidateNumber)
+            .HasMaxLength(30)
+            .IsRequired();
+
         builder.Property(c => c.FirstName)
             .HasMaxLength(50)
             .IsRequired();
@@ -29,12 +33,25 @@ public class CandidateConfiguration : BaseEntityConfiguration<Candidate>
         builder.Property(c => c.LinkedInUrl)
             .HasMaxLength(500);
 
+        builder.Property(c => c.Title)
+            .HasMaxLength(150);
+
+        builder.Property(c => c.Status)
+            .HasConversion<string>()
+            .HasMaxLength(30)
+            .IsRequired();
+
+        builder.Property(c => c.YearsOfExperience);
+
         builder.HasOne(c => c.Company)
             .WithMany(co => co.Candidates)
             .HasForeignKey(c => c.CompanyId)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasIndex(c => new { c.CompanyId, c.Email })
+            .IsUnique();
+
+        builder.HasIndex(c => new { c.CompanyId, c.CandidateNumber })
             .IsUnique();
 
         builder.HasIndex(c => c.CompanyId);

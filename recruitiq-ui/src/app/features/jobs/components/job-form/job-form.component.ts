@@ -33,6 +33,8 @@ function salaryRangeValidator(group: AbstractControl): ValidationErrors | null {
   return null;
 }
 
+import { JobStatusChipComponent } from '../job-status-chip/job-status-chip.component';
+
 @Component({
   selector: 'app-job-form',
   standalone: true,
@@ -47,7 +49,8 @@ function salaryRangeValidator(group: AbstractControl): ValidationErrors | null {
     MatNativeDateModule,
     MatChipsModule,
     MatProgressSpinnerModule,
-    AppCardComponent
+    AppCardComponent,
+    JobStatusChipComponent
   ],
   templateUrl: './job-form.component.html',
   styleUrl: './job-form.component.scss',
@@ -225,27 +228,6 @@ export class JobFormComponent implements OnInit {
     return count;
   }
 
-  protected getStatusName(status: JobStatus | null): string {
-    if (status === null) return '';
-    switch (status) {
-      case JobStatus.Draft: return 'Draft';
-      case JobStatus.Published: return 'Published';
-      case JobStatus.Closed: return 'Closed';
-      case JobStatus.Archived: return 'Archived';
-      default: return 'Unknown';
-    }
-  }
-
-  protected getStatusClass(status: JobStatus | null): string {
-    if (status === null) return '';
-    switch (status) {
-      case JobStatus.Draft: return 'draft';
-      case JobStatus.Published: return 'published';
-      case JobStatus.Closed: return 'closed';
-      case JobStatus.Archived: return 'archived';
-      default: return '';
-    }
-  }
 
   protected onSubmit(): void {
     if (this.jobForm.invalid) {

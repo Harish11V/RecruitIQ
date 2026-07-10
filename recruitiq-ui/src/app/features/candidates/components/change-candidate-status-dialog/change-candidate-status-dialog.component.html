@@ -1,0 +1,55 @@
+<div class="dialog-container p-4">
+  <h2 mat-dialog-title class="dialog-title m-0 d-flex align-center gap-2 font-semibold">
+    <mat-icon class="material-symbols-rounded text-primary">swap_horiz</mat-icon>
+    <span>Update Candidate Status</span>
+  </h2>
+
+  <mat-dialog-content class="dialog-content mt-4">
+    <form [formGroup]="statusForm" (ngSubmit)="onSubmit()" class="d-flex flex-column gap-4">
+      
+      <!-- Current Status info -->
+      <div class="status-summary-info p-3 rounded d-flex align-center justify-between">
+        <span class="text-muted font-13 font-medium">Current Status:</span>
+        <span class="current-status-badge font-semibold font-13 px-2.5 py-1 rounded">
+          {{ statusNames[data.currentStatus] }}
+        </span>
+      </div>
+
+      <!-- Next allowed statuses select -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Select New Status</mat-label>
+        <mat-select formControlName="newStatus">
+          @for (opt of allowedStatuses(); track opt.value) {
+            <mat-option [value]="opt.value">{{ opt.label }}</mat-option>
+          }
+        </mat-select>
+        <mat-error *ngIf="statusForm.controls.newStatus.hasError('required')">
+          New status selection is required.
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Reason text field -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Reason for Transition (Optional)</mat-label>
+        <textarea matInput formControlName="reason" rows="3" placeholder="Enter comments or reason for this status change..."></textarea>
+      </mat-form-field>
+
+      <!-- Confirmation note -->
+      <p class="confirmation-note text-muted font-12 m-0 p-2 border-left-alert">
+        <strong>Note:</strong> Status changes will be permanently logged to the candidate's activity timeline.
+      </p>
+
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="dialog-actions justify-end gap-2 mt-4">
+    <button mat-button type="button" [disabled]="store.isLoading()" (click)="onCancel()">Cancel</button>
+    <button mat-flat-button color="primary" type="button" 
+            [disabled]="statusForm.invalid || store.isLoading()" (click)="onSubmit()">
+      @if (store.isLoading()) {
+        <mat-spinner diameter="18" class="mr-2"></mat-spinner>
+      }
+      <span>Update Status</span>
+    </button>
+  </mat-dialog-actions>
+</div>

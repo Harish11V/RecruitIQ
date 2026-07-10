@@ -115,3 +115,11 @@ C:\Projects\RecruitIQ\tests\RecruitIQ.UnitTests\bin\Debug\net10.0\Microsoft.Iden
 C:\Projects\RecruitIQ\tests\RecruitIQ.UnitTests\bin\Debug\net10.0\Microsoft.IdentityModel.JsonWebTokens.dll
 C:\Projects\RecruitIQ\tests\RecruitIQ.UnitTests\bin\Debug\net10.0\Microsoft.IdentityModel.Logging.dll
 C:\Projects\RecruitIQ\tests\RecruitIQ.UnitTests\bin\Debug\net10.0\Microsoft.IdentityModel.Tokens.dll
+C:\Projects\RecruitIQ\tests\RecruitIQ.UnitTests\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.dll
+C:\Projects\RecruitIQ\tests\RecruitIQ.UnitTests\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Projects\RecruitIQ\tests\RecruitIQ.UnitTests\bin\Debug\net10.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Projects\RecruitIQ\tests\RecruitIQ.UnitTests\bin\Debug\net10.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Projects\RecruitIQ\tests\RecruitIQ.UnitTests\bin\Debug\net10.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Projects\RecruitIQ\tests\RecruitIQ.UnitTests\bin\Debug\net10.0\Microsoft.Extensions.Logging.dll
+C:\Projects\RecruitIQ\tests\RecruitIQ.UnitTests\bin\Debug\net10.0\Microsoft.Extensions.Options.dll
+C:\Projects\RecruitIQ\tests\RecruitIQ.UnitTests\bin\Debug\net10.0\Microsoft.Extensions.Primitives.dll

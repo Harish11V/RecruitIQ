@@ -1,0 +1,27 @@
+<div class="entity-header-wrapper d-flex align-center justify-between wrap gap-4 p-4">
+  <div class="entity-info-block d-flex align-center gap-3">
+    @if (avatarName()) {
+      <app-user-avatar 
+        [name]="avatarName()!" 
+        [imageUrl]="avatarImageUrl()" 
+        [size]="avatarSize()">
+      </app-user-avatar>
+    }
+    
+    <div class="entity-text-details">
+      <div class="title-row d-flex align-center wrap gap-2">
+        <h1 class="entity-title font-semibold m-0">{{ title() }}</h1>
+        <div class="status-projected d-flex align-center">
+          <ng-content select="[status]"></ng-content>
+        </div>
+      </div>
+      @if (subtitle()) {
+        <p class="entity-subtitle text-muted m-0 mt-1">{{ subtitle() }}</p>
+      }
+    </div>
+  </div>
+  
+  <div class="entity-actions-block d-flex align-center gap-2">
+    <ng-content select="[actions]"></ng-content>
+  </div>
+</div>

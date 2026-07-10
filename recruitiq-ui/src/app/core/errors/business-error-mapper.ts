@@ -19,7 +19,12 @@ export function mapBusinessError(errorCode: string | null | undefined): string {
     case 'ConcurrencyConflict':
       return 'This record has been modified by another user. Please refresh and try again.';
     case 'DepartmentAlreadyExists':
+    case 'DepartmentNameAlreadyExists':
       return 'A department with this name already exists.';
+    case 'DepartmentHasActiveJobs':
+      return 'This department cannot be deleted because it is assigned to one or more jobs.';
+    case 'InvalidCandidateStatusTransition':
+      return 'The selected status transition is not allowed.';
     default:
       // Clean up CamelCase error code into a readable sentence
       return code.replace(/([A-Z])/g, ' $1').trim();

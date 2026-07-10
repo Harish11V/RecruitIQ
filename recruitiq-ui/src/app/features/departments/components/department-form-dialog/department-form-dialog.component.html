@@ -1,0 +1,61 @@
+<h2 mat-dialog-title class="dialog-title d-flex align-center gap-2">
+  <mat-icon class="material-symbols-rounded text-primary">
+    {{ data.mode === 'create' ? 'add_box' : 'edit' }}
+  </mat-icon>
+  <span>{{ data.mode === 'create' ? 'Create Department' : 'Edit Department' }}</span>
+</h2>
+
+<form [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content class="dialog-content">
+    <div class="d-flex flex-column gap-3 mt-1">
+      
+      <!-- Name Field -->
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Department Name</mat-label>
+        <input 
+          matInput 
+          type="text" 
+          formControlName="name" 
+          placeholder="e.g. Engineering, Marketing"
+          #nameInput>
+        <mat-hint align="end">{{ nameInput.value.length }} / 100</mat-hint>
+        @if (departmentForm.get('name')?.hasError('required')) {
+          <mat-error>Department name is required</mat-error>
+        }
+        @if (departmentForm.get('name')?.hasError('maxlength')) {
+          <mat-error>Department name cannot exceed 100 characters</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Description Field -->
+      <mat-form-field appearance="outline" class="w-100 mt-2">
+        <mat-label>Description (Optional)</mat-label>
+        <textarea 
+          matInput 
+          formControlName="description" 
+          placeholder="Describe the department's focus or scope..."
+          rows="4"
+          #descInput></textarea>
+        <mat-hint align="end">{{ descInput.value.length }} / 500</mat-hint>
+        @if (departmentForm.get('description')?.hasError('maxlength')) {
+          <mat-error>Description cannot exceed 500 characters</mat-error>
+        }
+      </mat-form-field>
+
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="dialog-actions">
+    <button mat-button type="button" (click)="onCancel()" [disabled]="isSaving">
+      Cancel
+    </button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="isSaving || departmentForm.invalid">
+      @if (isSaving) {
+        <mat-spinner diameter="20" class="mr-2"></mat-spinner>
+        <span>Saving...</span>
+      } @else {
+        <span>{{ data.mode === 'create' ? 'Create' : 'Save Changes' }}</span>
+      }
+    </button>
+  </mat-dialog-actions>
+</form>

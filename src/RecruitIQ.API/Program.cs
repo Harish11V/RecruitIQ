@@ -38,6 +38,18 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+// 2a. Add CORS policy for local Angular dev server
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularDev", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
+
 // 3. Register layer dependencies
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
@@ -95,6 +107,8 @@ app.UseMiddleware<TenantMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+
+app.UseCors("AllowAngularDev");
 
 app.UseAuthentication();
 app.UseAuthorization();

@@ -85,9 +85,7 @@
       <div class="entity-title-section d-flex flex-column">
         <div class="entity-header-top d-flex align-center gap-3 wrap">
           <h1 class="entity-workspace-title m-0">{{ job()?.title }}</h1>
-          <span class="status-badge" [class]="getStatusClass(job()?.status)">
-            {{ getStatusName(job()?.status) }}
-          </span>
+          <app-job-status-chip [status]="job()?.status"></app-job-status-chip>
         </div>
         <span class="entity-workspace-subtitle d-flex align-center gap-2 mt-1">
           <span class="font-mono text-medium">{{ job()?.jobCode }}</span>

@@ -1,0 +1,133 @@
+@use '../../../../styles/theme/theme' as theme;
+
+.timeline-container {
+  position: relative;
+  width: 100%;
+}
+
+.timeline-track-line {
+  position: absolute;
+  top: 16px;
+  bottom: 16px;
+  left: 18px;
+  width: 2px;
+  background-color: rgba(100, 116, 139, 0.12);
+  z-index: 1;
+}
+
+.timeline-entry-row {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.timeline-badge-circle {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 50%;
+  border: 4px solid #ffffff;
+  z-index: 3;
+  box-sizing: border-box;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.timeline-content-card {
+  background-color: #ffffff;
+  border: 1px solid rgba(100, 116, 139, 0.12);
+  transition: all 0.25s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.02) !important;
+    border-color: rgba(100, 116, 139, 0.25);
+  }
+
+  .activity-action-name {
+    line-height: 1.3;
+  }
+
+  .activity-desc-text {
+    color: theme.$gray-600;
+    line-height: 1.5;
+  }
+
+  .activity-footer {
+    border-top: 1px dashed rgba(100, 116, 139, 0.1);
+  }
+
+  .badge-mini {
+    background-color: rgba(100, 116, 139, 0.06);
+    letter-spacing: 0.05em;
+  }
+}
+
+// Background Colors
+.bg-blue { background-color: #2563eb; }
+.bg-green { background-color: #10b981; }
+.bg-red { background-color: #ef4444; }
+.bg-amber { background-color: #f59e0b; }
+.bg-purple { background-color: #8b5cf6; }
+.bg-indigo { background-color: #6366f1; }
+.bg-gray { background-color: #64748b; }
+
+// Text Colors
+.text-blue { color: #2563eb; }
+.text-green { color: #10b981; }
+.text-red { color: #ef4444; }
+.text-amber { color: #f59e0b; }
+.text-purple { color: #8b5cf6; }
+.text-indigo { color: #6366f1; }
+.text-gray { color: #64748b; }
+
+// Empty State
+.empty-timeline-box {
+  background-color: #ffffff;
+  border: 1px dashed rgba(100, 116, 139, 0.2);
+
+  mat-icon {
+    color: theme.$gray-400;
+  }
+}
+
+// Skeleton Loading Layout
+.timeline-skeleton-list {
+  width: 100%;
+}
+
+.timeline-skeleton-item {
+  width: 100%;
+
+  .circle-skeleton {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+  }
+
+  .card-skeleton {
+    height: 110px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+  }
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

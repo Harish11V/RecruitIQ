@@ -15,6 +15,17 @@ public class ResumeConfiguration : BaseEntityConfiguration<Resume>
             .HasMaxLength(250)
             .IsRequired();
 
+        builder.Property(r => r.OriginalFileName)
+            .HasMaxLength(250)
+            .IsRequired();
+
+        builder.Property(r => r.FileSize)
+            .IsRequired();
+
+        builder.Property(r => r.MimeType)
+            .HasMaxLength(150)
+            .IsRequired();
+
         builder.Property(r => r.StoragePath)
             .HasMaxLength(500)
             .IsRequired();
@@ -22,6 +33,12 @@ public class ResumeConfiguration : BaseEntityConfiguration<Resume>
         builder.Property(r => r.AIExtractedText);
 
         builder.Property(r => r.AISummary);
+
+        builder.Property(r => r.ParserVersion)
+            .HasMaxLength(50);
+
+        builder.Property(r => r.IsPrimary)
+            .IsRequired();
 
         builder.HasOne(r => r.Company)
             .WithMany()

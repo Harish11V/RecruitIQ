@@ -1523,6 +1523,7 @@
           "FluentValidation": "12.1.1",
           "FluentValidation.DependencyInjectionExtensions": "12.1.1",
           "MediatR": "14.1.0",
+          "Microsoft.EntityFrameworkCore": "10.0.9",
           "RecruitIQ.Common": "1.0.0",
           "RecruitIQ.Contracts": "1.0.0",
           "RecruitIQ.Domain": "1.0.0"

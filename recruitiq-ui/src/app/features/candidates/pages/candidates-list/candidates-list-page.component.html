@@ -1,0 +1,259 @@
+<app-page-container>
+  <app-section-header 
+    title="Candidates" 
+    description="Manage your talent acquisition pool. Monitor resumes, coordinate candidate profiles, and filter candidates by skills or status.">
+  </app-section-header>
+
+  <!-- Toolbar Search & Filters -->
+  <div class="candidates-toolbar d-flex align-center justify-between wrap gap-3 mt-6">
+    <div class="filter-group d-flex align-center wrap gap-2">
+      <!-- Search Input -->
+      <div class="search-box-wrapper d-flex align-center">
+        <mat-icon class="search-icon material-symbols-rounded">search</mat-icon>
+        <input 
+          type="text" 
+          [formControl]="searchControl" 
+          placeholder="Search by name, email, or title..." 
+          class="search-input"
+          aria-label="Search candidates">
+      </div>
+
+      <!-- Status Dropdown -->
+      <mat-form-field appearance="outline" class="status-select-field">
+        <mat-label>Status</mat-label>
+        <mat-select [formControl]="statusControl">
+          @for (opt of statusOptions; track opt.value) {
+            <mat-option [value]="opt.value">{{ opt.label }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Actions -->
+    <div class="toolbar-actions d-flex align-center gap-2">
+      <button 
+        mat-stroked-button 
+        type="button" 
+        (click)="onRefresh()" 
+        [disabled]="store.isLoading()"
+        matTooltip="Refresh Candidate List">
+        <mat-icon class="material-symbols-rounded">refresh</mat-icon>
+        <span>Refresh</span>
+      </button>
+      
+      <button 
+        mat-flat-button 
+        color="primary" 
+        type="button" 
+        routerLink="/admin/candidates/create">
+        <mat-icon class="material-symbols-rounded">person_add</mat-icon>
+        <span>Add Candidate</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading State (Skeleton Grid) -->
+  @if (store.isLoading()) {
+    <div class="candidates-grid mt-6">
+      @for (i of [1, 2, 3, 4, 5, 6]; track i) {
+        <div class="skeleton-card"></div>
+      }
+    </div>
+  }
+  @else {
+    <!-- Empty State -->
+    @if (store.candidates().length === 0) {
+      <div class="empty-state-container d-flex flex-column align-center justify-center mt-12 p-8">
+        <div class="empty-illustration-wrapper d-flex align-center justify-center mb-4">
+          <mat-icon class="material-symbols-rounded empty-icon">group_off</mat-icon>
+        </div>
+        <h3 class="empty-title text-semibold m-0">No candidates found</h3>
+        <p class="empty-subtitle text-muted text-center mt-1 mb-6">
+          @if (store.searchTerm() || store.statusFilter()) {
+            No candidates match your active search or status filters. Try clearing or expanding your query.
+          } @else {
+            Start building your talent database by creating your first candidate profile.
+          }
+        </p>
+        
+        <button 
+          mat-flat-button 
+          color="primary" 
+          type="button" 
+          routerLink="/admin/candidates/create">
+          <mat-icon class="material-symbols-rounded">person_add</mat-icon>
+          <span>Add Candidate</span>
+        </button>
+      </div>
+    }
+    <!-- Candidates Grid of Cards -->
+    @else {
+      <div class="candidates-grid mt-6">
+        @for (candidate of store.candidates(); track candidate.id) {
+          <app-card class="candidate-card h-100" [hasHeader]="false">
+            <div card-content class="card-body d-flex flex-column justify-between h-100">
+              
+              <!-- Card Top Details -->
+              <div class="card-top-content">
+                
+                <!-- Avatar & Header Row -->
+                <!-- Avatar & Header Row -->
+                <div class="card-header-bar d-flex align-start justify-between gap-2">
+                  <div class="avatar-title-group d-flex align-center gap-3">
+                    <!-- Initials Avatar -->
+                    <div 
+                      class="initials-avatar d-flex align-center justify-center"
+                      [style.background-color]="getAvatarBgColor(candidate.id)"
+                      [style.color]="getAvatarTextColor(candidate.id)">
+                      {{ getInitials(candidate.person.firstName, candidate.person.lastName) }}
+                    </div>
+
+                    <div class="title-details">
+                      <h3 class="candidate-name text-semibold m-0">
+                        <a [routerLink]="['/admin/candidates', candidate.id]" class="candidate-link">
+                          {{ candidate.person.firstName }} {{ candidate.person.lastName }}
+                        </a>
+                      </h3>
+                      <p class="candidate-title text-muted m-0">
+                        {{ candidate.person.title || 'Candidate Profile' }}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <!-- Three-Dot Menu -->
+                  <button 
+                    mat-icon-button 
+                    [matMenuTriggerFor]="cardMenu" 
+                    aria-label="Candidate actions"
+                    class="action-menu-btn">
+                    <mat-icon class="material-symbols-rounded">more_vert</mat-icon>
+                  </button>
+                  
+                  <mat-menu #cardMenu="matMenu" xPosition="before">
+                    <button mat-menu-item (click)="onEdit(candidate)">
+                      <mat-icon class="material-symbols-rounded text-primary">edit</mat-icon>
+                      <span>Edit Profile</span>
+                    </button>
+                    <button mat-menu-item (click)="onApplyToJob(candidate)">
+                      <mat-icon class="material-symbols-rounded text-primary">assignment_turned_in</mat-icon>
+                      <span>Apply to Job</span>
+                    </button>
+                    <button mat-menu-item (click)="onDelete(candidate)">
+                      <mat-icon class="material-symbols-rounded text-danger">delete</mat-icon>
+                      <span class="text-danger">Delete</span>
+                    </button>
+                  </mat-menu>
+                </div>
+
+                <!-- Contact Badges / Action Row -->
+                <div class="contact-action-row d-flex flex-column gap-2 mt-4">
+                  <!-- Copy Email Action -->
+                  <div class="d-flex align-center gap-2">
+                    <button 
+                      mat-button 
+                      type="button" 
+                      class="contact-link-btn p-0" 
+                      (click)="onCopyEmail(candidate.contact.email, $event)"
+                      matTooltip="Copy email address"
+                      aria-label="Copy email">
+                      <mat-icon class="material-symbols-rounded text-muted">mail</mat-icon>
+                      <span>{{ candidate.contact.email }}</span>
+                    </button>
+
+                    <!-- Open LinkedIn Action (if provided) -->
+                    @if (candidate.contact.linkedInUrl) {
+                      <button 
+                        mat-icon-button 
+                        type="button" 
+                        class="contact-icon-btn small-icon-btn"
+                        (click)="onOpenLinkedIn(candidate.contact.linkedInUrl, $event)"
+                        matTooltip="Open LinkedIn Profile"
+                        aria-label="LinkedIn profile">
+                        <mat-icon class="material-symbols-rounded">link</mat-icon>
+                      </button>
+                    }
+                  </div>
+
+                  <!-- Phone Number Action -->
+                  @if (candidate.contact.phoneNumber) {
+                    <div class="d-flex align-center gap-2">
+                      <div class="contact-text-row text-muted">
+                        <mat-icon class="material-symbols-rounded">phone</mat-icon>
+                        <span>{{ candidate.contact.phoneNumber }}</span>
+                      </div>
+                    </div>
+                  }
+                </div>
+
+                <!-- Skills Chip List -->
+                <div class="skills-list d-flex align-center wrap gap-1 mt-4">
+                  @if (candidate.skills.length > 0) {
+                    @for (skill of candidate.skills.slice(0, 3); track skill) {
+                      <span class="skill-chip text-ellipsis">{{ skill }}</span>
+                    }
+                    @if (candidate.skills.length > 3) {
+                      <span class="skill-chip count-chip">+{{ candidate.skills.length - 3 }}</span>
+                    }
+                  } @else {
+                    <span class="no-skills-label text-muted">No skills mapped</span>
+                  }
+                </div>
+
+              </div>
+
+              <!-- Card Bottom Metadata Footer -->
+              <div class="card-metadata-footer mt-5">
+                <div class="metadata-divider mb-3"></div>
+                
+                <!-- Status & Experience Grid -->
+                <div class="metadata-grid d-flex flex-column gap-2 mb-3">
+                  <div class="d-flex justify-between align-center">
+                    <span class="metadata-cell-label text-muted">Status</span>
+                    <app-candidate-status-chip [status]="candidate.status.label"></app-candidate-status-chip>
+                  </div>
+                  
+                  <div class="d-flex justify-between align-center">
+                    <span class="metadata-cell-label text-muted">Experience</span>
+                    <span class="metadata-cell-value font-semibold">
+                      {{ candidate.yearsOfExperience ? candidate.yearsOfExperience + ' Years Experience' : 'N/A' }}
+                    </span>
+                  </div>
+
+                  <div class="d-flex justify-between align-center">
+                    <span class="metadata-cell-label text-muted">Resume</span>
+                    <span class="metadata-cell-value font-semibold">
+                      @if (candidate.resume.hasResume) {
+                        <span>📄 Resume Available</span>
+                      } @else {
+                        <span class="text-muted">None</span>
+                      }
+                    </span>
+                  </div>
+                </div>
+
+                <div class="metadata-divider mb-3"></div>
+                
+                <div class="d-flex justify-between align-center text-muted font-11">
+                  <span>Last Updated</span>
+                  <span class="font-medium">Yesterday</span>
+                </div>
+              </div>
+
+            </div>
+          </app-card>
+        }
+      </div>
+
+      <!-- Pagination Footer -->
+      <mat-paginator 
+        class="mt-6"
+        [length]="store.totalRecords()"
+        [pageSize]="store.pageSize()"
+        [pageIndex]="store.page() - 1"
+        [pageSizeOptions]="[5, 10, 20]"
+        (page)="onPageChange($event)"
+        aria-label="Select page of candidates">
+      </mat-paginator>
+    }
+  }
+</app-page-container>

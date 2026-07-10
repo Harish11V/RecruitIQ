@@ -215,9 +215,7 @@
         } @else {
           <mat-icon class="material-symbols-rounded status-icon">info</mat-icon>
           <div class="status-description">
-            <span class="status-badge mb-2 d-inline-block" [class]="getStatusClass(currentStatus())">
-              {{ getStatusName(currentStatus()) }}
-            </span>
+            <app-job-status-chip [status]="currentStatus()" class="mb-2 d-inline-block"></app-job-status-chip>
             <p class="status-explanation m-0">
               @if (currentStatus() === 0) {
                 This job is currently a **Draft**. Recruiter reviewers can update details before publishing it to the public board.

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using RecruitIQ.Application.Common.Interfaces;
 using RecruitIQ.Common;
 using RecruitIQ.Contracts;
@@ -31,14 +32,19 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, Result<AuthResp
 
     public async Task<Result<AuthResponse>> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        var companyId = _tenantService.CompanyId;
-        
-        // Find User
-        var user = _context.Users.FirstOrDefault(u => u.CompanyId == companyId && u.Email.ToLower() == request.Email.ToLower());
+        // Find User by email only — tenant/CompanyId isn't known yet at login time,
+        // since the JWT (which carries CompanyId) doesn't exist until AFTER login succeeds.
+        var user = _context.Users
+            .IgnoreQueryFilters()
+            .FirstOrDefault(u => u.Email.ToLower() == request.Email.ToLower());
+
         if (user == null)
         {
             return Result<AuthResponse>.Failure("Invalid email or password.");
         }
+
+        // Derive tenant from the user we found, now that we know who they are
+        var companyId = user.CompanyId;
 
         // Lockout Check
         if (user.LockoutUntil.HasValue && user.LockoutUntil.Value > DateTime.UtcNow)
@@ -65,8 +71,12 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, Result<AuthResp
         user.LastLoginAt = DateTime.UtcNow;
         user.LastLoginIp = request.IpAddress;
 
-        // Fetch roles
+        // Fetch roles — same tenant-filter issue as the user lookup above,
+        // UserRoles implements IMultiTenant so it's filtered by CurrentCompanyId,
+        // which isn't set yet at login time. Bypass it for this specific,
+        // already-password-verified user's own role lookup.
         var roles = _context.UserRoles
+            .IgnoreQueryFilters()
             .Where(ur => ur.UserId == user.Id)
             .Select(ur => ur.Role.Name)
             .ToList();

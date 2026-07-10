@@ -1,0 +1,55 @@
+<div 
+  class="upload-dropzone" 
+  [class.drag-over]="isDragOver()" 
+  [class.has-image]="!!imageUrl"
+  [class.uploading]="isUploading"
+  (dragover)="onDragOver($event)" 
+  (dragleave)="onDragLeave($event)" 
+  (drop)="onDrop($event)"
+  (click)="triggerFileBrowse()">
+
+  <input 
+    #fileInput 
+    type="file" 
+    accept=".png,.jpg,.jpeg,.webp" 
+    class="hidden-file-input" 
+    (change)="onFileSelected($event)">
+
+  @if (isUploading) {
+    <div class="upload-loader d-flex flex-column align-center justify-center gap-3">
+      <mat-spinner diameter="40"></mat-spinner>
+      <span class="loader-text text-medium">Uploading image...</span>
+    </div>
+  } @else if (imageUrl) {
+    <div class="image-preview-wrapper d-flex align-center justify-center">
+      <img [src]="imageUrl" alt="Preview" class="image-preview">
+      
+      <div class="hover-actions-overlay d-flex align-center justify-center gap-2">
+        <button mat-flat-button color="primary" type="button" class="action-btn">
+          <mat-icon class="material-symbols-rounded">autorenew</mat-icon>
+          <span>Replace</span>
+        </button>
+        <button mat-flat-button color="warn" type="button" class="action-btn" (click)="onRemove($event)">
+          <mat-icon class="material-symbols-rounded">delete</mat-icon>
+          <span>Remove</span>
+        </button>
+      </div>
+    </div>
+  } @else {
+    <div class="upload-placeholder d-flex flex-column align-center justify-center gap-2">
+      <div class="placeholder-icon-wrapper d-flex align-center justify-center">
+        <mat-icon class="material-symbols-rounded">image</mat-icon>
+      </div>
+      <span class="placeholder-title text-semibold">{{ placeholderText }}</span>
+      <span class="placeholder-formats text-muted">{{ supportedFormats }}</span>
+      <span class="placeholder-hint text-primary font-semibold mt-1">Drag & Drop or Click to Browse</span>
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="upload-error-message mt-2" (click)="$event.stopPropagation()">
+      <mat-icon class="material-symbols-rounded text-danger">error</mat-icon>
+      <span>{{ errorMessage() }}</span>
+    </div>
+  }
+</div>

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { JobsPageComponent } from './pages/jobs-page.component';
+import { JobsPageComponent } from './pages/jobs-list/jobs-page.component';
 import { unsavedChangesGuard } from '../../core/guards/unsaved-changes.guard';
 
 export const routes: Routes = [

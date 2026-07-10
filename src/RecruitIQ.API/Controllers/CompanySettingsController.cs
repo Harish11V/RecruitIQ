@@ -12,6 +12,8 @@ using RecruitIQ.Application.Features.CompanySettings.UploadCompanyLogo;
 using RecruitIQ.Common;
 using RecruitIQ.Contracts;
 
+using RecruitIQ.Application.Features.CompanySettings.DeleteCompanyLogo;
+
 namespace RecruitIQ.API.Controllers;
 
 [ApiController]
@@ -47,12 +49,17 @@ public class CompanySettingsController : ControllerBase
             request.Theme,
             request.Timezone,
             request.DefaultInterviewDuration,
-            request.AllowedEmailDomain);
+            request.AllowedEmailDomain,
+            request.RowVersion);
 
         var result = await _mediator.Send(command);
 
         if (!result.IsSuccess)
         {
+            if (result.Error != null && result.Error.Contains("concurrency"))
+            {
+                return Conflict(new ApiResponse<object>(null!, false, "A concurrency conflict occurred. The settings have been modified by another administrator.", new List<string> { result.Error }));
+            }
             return BadRequest(new ApiResponse<object>(null!, false, "Failed to update company settings.", new List<string> { result.Error ?? "Unknown error." }));
         }
 
@@ -77,5 +84,19 @@ public class CompanySettingsController : ControllerBase
         }
 
         return Ok(new ApiResponse<string>(result.Value!, true, "Company logo uploaded successfully."));
+    }
+
+    [HttpDelete("logo")]
+    public async Task<IActionResult> DeleteLogo()
+    {
+        var command = new DeleteCompanyLogoCommand();
+        var result = await _mediator.Send(command);
+
+        if (!result.IsSuccess)
+        {
+            return BadRequest(new ApiResponse<object>(null!, false, "Failed to remove company logo.", new List<string> { result.Error ?? "Unknown error." }));
+        }
+
+        return Ok(new ApiResponse<object>(null!, true, "Company logo removed successfully."));
     }
 }

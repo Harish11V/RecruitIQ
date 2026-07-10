@@ -1,0 +1,507 @@
+<app-page-container>
+  
+  <!-- Back Button Toolbar -->
+  <div class="back-toolbar d-flex align-center gap-2 mb-4">
+    <button mat-button type="button" (click)="onBackToList()">
+      <mat-icon class="material-symbols-rounded">arrow_back</mat-icon>
+      <span>Back to Candidates</span>
+    </button>
+  </div>
+
+  @if (isLoading()) {
+    <div class="details-skeleton-grid">
+      <div class="skeleton-profile-card"></div>
+      <div class="skeleton-tabs-card"></div>
+    </div>
+  }
+  @else if (error()) {
+    <div class="error-container d-flex flex-column align-center justify-center p-8 mt-6">
+      <mat-icon class="material-symbols-rounded text-danger font-48">error</mat-icon>
+      <h3 class="error-title text-semibold mt-2 m-0">Failed to load profile</h3>
+      <p class="error-subtitle text-muted text-center mt-1 mb-4">{{ error() }}</p>
+      <button mat-flat-button color="primary" (click)="ngOnInit()">Retry</button>
+    </div>
+  }
+  @else if (candidate(); as profile) {
+    
+    <!-- Rich Candidate Header using EntityHeaderComponent -->
+    <app-entity-header 
+      [title]="profile.firstName + ' ' + profile.lastName" 
+      [subtitle]="profile.title || 'Candidate Profile'"
+      [avatarName]="profile.firstName + ' ' + profile.lastName"
+      [avatarSize]="56">
+      
+      <!-- Project Status Chip -->
+      <div status class="d-flex align-center gap-2">
+        <!-- Reusing CandidateStatusChipComponent -->
+        <app-candidate-status-chip [status]="profile.status === 0 ? 'New' : profile.status === 1 ? 'Available' : profile.status === 2 ? 'Shortlisted' : profile.status === 3 ? 'Interviewing' : profile.status === 4 ? 'Offered' : profile.status === 5 ? 'Hired' : profile.status === 6 ? 'Rejected' : 'Inactive'"></app-candidate-status-chip>
+        @if (isCreatedToday(profile.createdAt)) {
+          <span class="created-today-badge">Created Today</span>
+        }
+      </div>
+
+      <!-- Project Action Buttons -->
+      <div actions class="d-flex align-center gap-2">
+        <button 
+          mat-stroked-button 
+          type="button"
+          (click)="onCopyEmail(profile.email, $event)"
+          matTooltip="Copy candidate email address">
+          <mat-icon class="material-symbols-rounded">mail</mat-icon>
+          <span>Copy Email</span>
+        </button>
+
+        @if (profile.linkedInUrl) {
+          <button 
+            mat-stroked-button 
+            type="button"
+            (click)="onOpenLinkedIn(profile.linkedInUrl, $event)"
+            matTooltip="Open LinkedIn Profile">
+            <mat-icon class="material-symbols-rounded">link</mat-icon>
+            <span>LinkedIn</span>
+          </button>
+        }
+
+        <a 
+          mat-flat-button 
+          color="primary" 
+          [routerLink]="['/admin/candidates', profile.candidateId, 'edit']"
+          matTooltip="Edit Candidate Profile">
+          <mat-icon class="material-symbols-rounded">edit</mat-icon>
+          <span>Edit Candidate</span>
+        </a>
+      </div>
+    </app-entity-header>
+
+    <!-- Main Layout Grid -->
+    <div class="details-layout-grid mt-6">
+      
+      <!-- Left Column: Summary Cards -->
+      <div class="sidebar-column d-flex flex-column gap-6">
+        
+        <!-- Contact Information Card -->
+        <app-card [title]="'Contact Information'">
+          <div card-content class="p-4 d-flex flex-column gap-1">
+            <app-detail-row 
+              label="Email Address" 
+              [value]="profile.email" 
+              icon="mail">
+            </app-detail-row>
+
+            <app-detail-row 
+              label="Phone Number" 
+              [value]="profile.phoneNumber || 'Not provided'" 
+              icon="phone">
+            </app-detail-row>
+
+            <app-detail-row 
+              label="LinkedIn Profile" 
+              [value]="profile.linkedInUrl || 'Not provided'" 
+              icon="link">
+            </app-detail-row>
+          </div>
+        </app-card>
+
+        <!-- Resume Summary Card -->
+        <app-card [title]="'Resume Management'">
+          <div card-content class="p-4 d-flex flex-column gap-3">
+            
+            @if (profile.resumes && profile.resumes.length > 0) {
+              <div class="resumes-list d-flex flex-column gap-3">
+                @for (resume of profile.resumes; track resume.id) {
+                  <div class="resume-item-row p-3 rounded d-flex flex-column gap-2" [class.primary-resume-border]="resume.isPrimary">
+                    <div class="d-flex align-start gap-2 justify-between">
+                      <div class="d-flex align-start gap-2">
+                        <mat-icon class="material-symbols-rounded text-primary font-20 mt-1">description</mat-icon>
+                        <div class="d-flex flex-column">
+                          <span class="resume-title-text font-semibold font-13 text-ellipsis" [matTooltip]="resume.originalFileName">
+                            {{ resume.originalFileName }}
+                          </span>
+                          <span class="resume-size text-muted font-11 mt-0.5">
+                            {{ (resume.fileSize / 1024) | number:'1.0-0' }} KB &bull; {{ resume.uploadedDate | date:'mediumDate' }} &bull; Version {{ resume.version }}
+                          </span>
+                        </div>
+                      </div>
+                      
+                      @if (resume.isPrimary) {
+                        <span class="primary-badge font-semibold font-10 uppercase px-2 py-0.5 rounded">★ Primary</span>
+                      }
+                    </div>
+
+                    <!-- Action buttons -->
+                    <div class="d-flex align-center justify-between mt-1 pt-2 border-top">
+                      <span class="text-muted font-10">By: {{ resume.uploadedBy || 'System' }}</span>
+                      
+                      <div class="d-flex align-center gap-1">
+                        <button 
+                          mat-icon-button 
+                          type="button"
+                          class="action-icon-btn"
+                          (click)="onDownloadResume(resume, $event)" 
+                          matTooltip="Download Resume">
+                          <mat-icon class="material-symbols-rounded font-18">download</mat-icon>
+                        </button>
+                        
+                        @if (!resume.isPrimary) {
+                          <button 
+                            mat-icon-button 
+                            type="button"
+                            class="action-icon-btn text-muted"
+                            [disabled]="resumeStore.isSettingPrimary()"
+                            (click)="onSetPrimaryResume(resume, $event)" 
+                            matTooltip="Set as Primary">
+                            <mat-icon class="material-symbols-rounded font-18">star</mat-icon>
+                          </button>
+                        }
+                        
+                        <button 
+                          mat-icon-button 
+                          type="button"
+                          class="action-icon-btn text-danger"
+                          [disabled]="resumeStore.isDeleting()"
+                          (click)="onDeleteResume(resume, $event)" 
+                          matTooltip="Delete Resume">
+                          <mat-icon class="material-symbols-rounded font-18">delete</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                }
+              </div>
+            } @else {
+              <!-- Empty State -->
+              @if (!isUploadingNew()) {
+                <div class="no-resume-box d-flex flex-column align-center justify-center p-6 text-center rounded border-dashed">
+                  <mat-icon class="material-symbols-rounded text-muted mb-2 font-36">cloud_off</mat-icon>
+                  <h4 class="no-resume-title font-semibold m-0">No Resumes Uploaded</h4>
+                  <p class="no-resume-desc text-muted font-12 mt-1 mb-0">
+                    Upload a PDF or Word document to get started.
+                  </p>
+                </div>
+              }
+            }
+
+            <!-- Upload Controls -->
+            @if (isUploadingNew()) {
+              <div class="resume-upload-wrapper mt-2">
+                <app-resume-upload 
+                  [isUploading]="resumeStore.isUploading()" 
+                  [uploadProgress]="resumeStore.uploadProgress()" 
+                  (upload)="onUploadResumeFile($event)">
+                </app-resume-upload>
+                <button 
+                  mat-stroked-button 
+                  color="warn" 
+                  type="button"
+                  class="w-100 mt-2 text-medium"
+                  [disabled]="resumeStore.isUploading()" 
+                  (click)="isUploadingNew.set(false)">
+                  <span>Cancel</span>
+                </button>
+              </div>
+            } @else {
+              <button 
+                mat-stroked-button 
+                color="primary" 
+                type="button"
+                class="w-100 mt-2"
+                [disabled]="resumeStore.isUploading() || resumeStore.isDeleting() || resumeStore.isSettingPrimary()"
+                (click)="isUploadingNew.set(true)">
+                <mat-icon class="material-symbols-rounded">cloud_upload</mat-icon>
+                <span>Upload Resume</span>
+              </button>
+            }
+
+          </div>
+        </app-card>
+
+        <!-- Recruitment Workflow Card -->
+        <app-card [title]="'Recruitment Workflow'">
+          <div card-content class="p-4 d-flex flex-column gap-3">
+            
+            <div class="d-flex align-center justify-between">
+              <span class="text-muted font-12 font-medium">Pipeline Stage:</span>
+              <app-candidate-status-chip [status]="statusNames[profile.status]"></app-candidate-status-chip>
+            </div>
+
+            <div class="workflow-info p-2 rounded bg-slate-50 border border-slate-100">
+              <p class="font-11 text-muted m-0 leading-relaxed text-italic">
+                {{ getLifecycleExplanation(profile.status) }}
+              </p>
+            </div>
+
+            <!-- Transition list -->
+            <div class="allowed-transitions-list mt-1">
+              <span class="d-block font-11 font-semibold text-muted uppercase mb-1.5">Next Available Stages</span>
+              <div class="d-flex flex-wrap gap-1.5">
+                @for (stage of getAllowedStages(profile.status); track stage) {
+                  <span class="stage-badge font-semibold font-10 px-2 py-0.5 rounded text-muted bg-slate-100 text-slate-600">
+                    {{ stage }}
+                  </span>
+                }
+              </div>
+            </div>
+
+            <button 
+              mat-flat-button 
+              color="primary" 
+              type="button" 
+              class="w-100 mt-2" 
+              (click)="onChangeStatusFlow()">
+              <mat-icon class="material-symbols-rounded">swap_horiz</mat-icon>
+              <span>Change Stage</span>
+            </button>
+            
+          </div>
+        </app-card>
+
+        <!-- Candidate Statistics Card -->
+        <app-card [title]="'Candidate Statistics'">
+          <div card-content class="p-4 d-flex flex-column gap-2">
+            <div class="d-flex justify-between align-center text-muted font-13">
+              <span>Active Applications</span>
+              <span class="font-semibold text-gray-800">{{ profile.applicationsCount }}</span>
+            </div>
+            
+            <div class="d-flex justify-between align-center text-muted font-13">
+              <span>Scheduled Interviews</span>
+              <span class="font-semibold text-gray-800">{{ profile.interviewsCount }}</span>
+            </div>
+
+            <div class="d-flex justify-between align-center text-muted font-13">
+              <span>Status</span>
+              <app-candidate-status-chip [status]="statusNames[profile.status]"></app-candidate-status-chip>
+            </div>
+
+            <div class="d-flex justify-between align-center text-muted font-13">
+              <span>Member Since</span>
+              <span class="font-semibold text-gray-800">{{ profile.createdAt | date:'mediumDate' }}</span>
+            </div>
+
+            <div class="d-flex justify-between align-center text-muted font-13">
+              <span>Last Updated</span>
+              <span class="font-semibold text-gray-800">{{ (profile.updatedAt || profile.createdAt) | date:'mediumDate' }}</span>
+            </div>
+          </div>
+        </app-card>
+
+      </div>
+
+      <!-- Right Column: Tabs Detail Workspace -->
+      <div class="profile-details-workspace">
+        <app-card [hasHeader]="false">
+          <div card-content class="p-4">
+            
+            <mat-tab-group>
+              
+              <!-- Tab 1: Overview -->
+              <mat-tab label="Overview">
+                <div class="tab-content-panel d-flex flex-column gap-6 mt-4">
+                  
+                  <!-- Professional Summary Card -->
+                  <app-card [title]="'Professional Summary'">
+                    <div card-content class="p-4 d-flex flex-column gap-1">
+                      <app-detail-row 
+                        label="Desired Title / Role" 
+                        [value]="profile.title || 'Not specified'" 
+                        icon="work">
+                      </app-detail-row>
+                      
+                      <app-detail-row 
+                        label="Years of Experience" 
+                        [value]="profile.yearsOfExperience ? profile.yearsOfExperience + ' Years' : 'Not specified'" 
+                        icon="grade">
+                      </app-detail-row>
+
+                      <app-detail-row 
+                        label="Active Status" 
+                        [value]="profile.status === 0 ? 'New' : profile.status === 1 ? 'Available' : profile.status === 2 ? 'Shortlisted' : profile.status === 3 ? 'Interviewing' : profile.status === 4 ? 'Offered' : profile.status === 5 ? 'Hired' : profile.status === 6 ? 'Rejected' : 'Inactive'" 
+                        icon="info">
+                      </app-detail-row>
+                    </div>
+                  </app-card>
+
+                  <!-- Skills Card -->
+                  <app-card [title]="'Skills & Technologies'">
+                    <div card-content class="p-4">
+                      @if (profile.skills.length > 0) {
+                        <div class="skills-flex d-flex wrap gap-2">
+                          @for (skill of profile.skills.slice(0, 4); track skill) {
+                            <span class="skill-tag-chip">{{ skill }}</span>
+                          }
+                          @if (profile.skills.length > 4) {
+                            <span class="skill-tag-chip count-chip">+{{ profile.skills.length - 4 }}</span>
+                          }
+                        </div>
+                      } @else {
+                        <p class="no-data-msg text-muted mt-0 mb-0 font-13 italic">No skills mapped.</p>
+                      }
+                    </div>
+                  </app-card>
+
+                  <!-- Experience Card -->
+                  <app-card [title]="'Professional Experience'">
+                    <div card-content class="p-4">
+                      @if (profile.experiences.length > 0) {
+                        <div class="experience-timeline d-flex flex-column gap-4">
+                          @for (exp of profile.experiences; track exp.company) {
+                            <div class="experience-item p-3 rounded">
+                              <div class="d-flex justify-between align-start wrap gap-2">
+                                <div>
+                                  <h4 class="exp-role font-semibold m-0">{{ exp.role }}</h4>
+                                  <span class="exp-company text-medium text-muted mt-1 d-inline-block">{{ exp.company }}</span>
+                                </div>
+                                <span class="exp-dates text-muted font-12">
+                                  {{ exp.startDate | date:'MMM yyyy' }} - 
+                                  {{ exp.endDate ? (exp.endDate | date:'MMM yyyy') : 'Present' }}
+                                </span>
+                              </div>
+                              @if (exp.description) {
+                                <p class="exp-desc text-muted mt-2 mb-0 font-13">{{ exp.description }}</p>
+                              }
+                            </div>
+                          }
+                        </div>
+                      } @else {
+                        <p class="no-data-msg text-muted mt-0 mb-0 font-13 italic">No professional experience listed.</p>
+                      }
+                    </div>
+                  </app-card>
+
+                  <!-- Education Card -->
+                  <app-card [title]="'Education'">
+                    <div card-content class="p-4">
+                      @if (profile.educations.length > 0) {
+                        <div class="education-timeline d-flex flex-column gap-4">
+                          @for (edu of profile.educations; track edu.institution) {
+                            <div class="education-item p-3 rounded">
+                              <div class="d-flex justify-between align-start wrap gap-2">
+                                <div>
+                                  <h4 class="edu-degree font-semibold m-0">{{ edu.degree }}</h4>
+                                  <span class="edu-school text-medium text-muted mt-1 d-inline-block">{{ edu.institution }}</span>
+                                </div>
+                                <span class="edu-dates text-muted font-12">
+                                  {{ edu.startYear }} - {{ edu.endYear || 'Present' }}
+                                </span>
+                              </div>
+                              @if (edu.gpa) {
+                                <span class="edu-gpa badge mt-2 d-inline-block font-12">GPA: {{ edu.gpa }}</span>
+                              }
+                            </div>
+                          }
+                        </div>
+                      } @else {
+                        <p class="no-data-msg text-muted mt-0 mb-0 font-13 italic">No education details listed.</p>
+                      }
+                    </div>
+                  </app-card>
+
+                  <!-- Certifications Card -->
+                  <app-card [title]="'Certifications'">
+                    <div card-content class="p-4">
+                      @if (profile.certifications.length > 0) {
+                        <div class="certification-grid d-flex flex-column gap-3">
+                          @for (cert of profile.certifications; track cert.certificate) {
+                            <div class="cert-item p-3 rounded d-flex justify-between align-center">
+                              <div>
+                                <h4 class="cert-name font-semibold m-0">{{ cert.certificate }}</h4>
+                                <span class="cert-authority text-muted mt-1 d-inline-block font-12">{{ cert.provider }}</span>
+                              </div>
+                              <span class="cert-date text-muted font-12">
+                                Issued {{ cert.year }}
+                              </span>
+                            </div>
+                          }
+                        </div>
+                      } @else {
+                        <p class="no-data-msg text-muted mt-0 mb-0 font-13 italic">No certifications listed.</p>
+                      }
+                    </div>
+                  </app-card>
+
+                </div>
+              </mat-tab>
+
+              <!-- Tab 2: Applications placeholder -->
+              <mat-tab label="Applications">
+                <div class="tab-content-panel empty-tab-view d-flex flex-column align-center justify-center p-8 mt-6">
+                  <div class="empty-icon-circle d-flex align-center justify-center mb-4">
+                    <mat-icon class="material-symbols-rounded">assignment_turned_in</mat-icon>
+                  </div>
+                  <h3 class="empty-title text-semibold m-0">Applications</h3>
+                  <p class="empty-subtitle text-muted text-center mt-2 mb-0 max-w-320">
+                    This feature will be available in Sprint 9.8.
+                  </p>
+                </div>
+              </mat-tab>
+
+              <!-- Tab 3: Activity Timeline -->
+              <mat-tab label="Activity Timeline">
+                <div class="tab-content-panel mt-6">
+                  <app-candidate-timeline [candidateId]="profile.candidateId"></app-candidate-timeline>
+                </div>
+              </mat-tab>
+
+              <!-- Tab 4: AI Screening layout reserved -->
+              <mat-tab label="AI Analysis">
+                <div class="tab-content-panel mt-4 d-flex flex-column gap-6">
+                  
+                  <app-card [title]="'AI Resume Analysis'">
+                    <div card-content class="p-4 d-flex flex-column gap-3">
+                      
+                      <div class="d-flex justify-between align-center">
+                        <span class="font-semibold text-gray-800">Overall Match Score</span>
+                        <span class="font-bold text-primary font-18">--</span>
+                      </div>
+
+                      <mat-divider></mat-divider>
+
+                      <div class="ai-status-block p-3 rounded">
+                        <div class="d-flex align-start gap-2">
+                          <mat-icon class="material-symbols-rounded text-primary">psychology</mat-icon>
+                          <div class="d-flex flex-column">
+                            <span class="font-semibold font-13">⚡ AI Resume Parsing</span>
+                            <span class="text-muted font-11 mt-1">Coming in Sprint 10</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <mat-divider></mat-divider>
+
+                      <div class="ai-status-block p-3 rounded">
+                        <div class="d-flex align-start gap-2">
+                          <mat-icon class="material-symbols-rounded text-primary">analytics</mat-icon>
+                          <div class="d-flex flex-column">
+                            <span class="font-semibold font-13">Candidate Summary</span>
+                            <span class="text-muted font-11 mt-1">Coming in Sprint 10</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <mat-divider></mat-divider>
+
+                      <div class="ai-status-block p-3 rounded">
+                        <div class="d-flex align-start gap-2">
+                          <mat-icon class="material-symbols-rounded text-primary">insights</mat-icon>
+                          <div class="d-flex flex-column">
+                            <span class="font-semibold font-13">Skill Match</span>
+                            <span class="text-muted font-11 mt-1">Coming in Sprint 10</span>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </app-card>
+
+                </div>
+              </mat-tab>
+
+            </mat-tab-group>
+
+          </div>
+        </app-card>
+      </div>
+
+    </div>
+  }
+</app-page-container>

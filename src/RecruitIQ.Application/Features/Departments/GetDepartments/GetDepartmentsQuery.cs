@@ -5,4 +5,4 @@ using RecruitIQ.Contracts;
 
 namespace RecruitIQ.Application.Features.Departments.GetDepartments;
 
-public record GetDepartmentsQuery() : IRequest<Result<IReadOnlyList<DepartmentSummaryResponse>>>;
+public record GetDepartmentsQuery(string? Search = null) : IRequest<Result<IReadOnlyList<DepartmentResponse>>>;

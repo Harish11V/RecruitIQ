@@ -1,0 +1,294 @@
+@use '../../../../styles/theme/theme' as theme;
+
+.back-toolbar {
+  button {
+    color: theme.$gray-600;
+    font-size: 13px;
+    font-weight: 500;
+    
+    mat-icon {
+      font-size: 20px;
+    }
+
+    &:hover {
+      background-color: rgba(100, 116, 139, 0.05);
+      color: theme.$primary;
+    }
+  }
+}
+
+.created-today-badge {
+  font-size: 10px;
+  font-weight: 600;
+  background-color: rgba(16, 185, 129, 0.08);
+  color: #10b981;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.details-layout-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: theme.$space-6;
+  align-items: start;
+
+  @include theme.desktop {
+    grid-template-columns: 320px 1fr;
+  }
+}
+
+.sidebar-column {
+  .resume-item-row {
+    border: 1px solid rgba(100, 116, 139, 0.12);
+    background-color: #fafbfd;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: #f1f5f9;
+      border-color: rgba(99, 102, 241, 0.2);
+    }
+
+    &.primary-resume-border {
+      border-color: rgba(16, 185, 129, 0.3);
+      background-color: rgba(240, 253, 244, 0.4);
+      
+      &:hover {
+        background-color: rgba(240, 253, 244, 0.8);
+        border-color: rgba(16, 185, 129, 0.5);
+      }
+    }
+
+    .resume-title-text {
+      color: theme.$gray-800;
+      max-width: 170px;
+    }
+
+    .action-icon-btn {
+      width: 32px;
+      height: 32px;
+      line-height: 32px;
+      
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+
+  .primary-badge {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #059669;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+  }
+
+  .border-top {
+    border-top: 1px solid rgba(100, 116, 139, 0.1);
+  }
+
+  .no-resume-box {
+    border: 1px dashed rgba(100, 116, 139, 0.2);
+    background-color: theme.$gray-50;
+    
+    mat-icon {
+      font-size: 36px;
+      color: theme.$gray-400;
+    }
+
+    .no-resume-title {
+      font-size: 14px;
+      color: theme.$gray-700;
+    }
+
+    .no-resume-desc {
+      line-height: 1.4;
+    }
+  }
+
+  .small-action-btn {
+    height: 32px;
+    line-height: 32px;
+    font-size: 12px;
+    border-radius: 6px;
+
+    mat-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+    }
+  }
+}
+
+.profile-details-workspace {
+  // Tabs overrides
+  ::ng-deep .mat-mdc-tab {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+  }
+
+  .tab-content-panel {
+    padding: theme.$space-4 0;
+  }
+
+  // Items
+  .experience-item, .education-item, .cert-item {
+    border: 1px solid rgba(100, 116, 139, 0.06);
+    background-color: theme.$gray-50;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #ffffff;
+      border-color: rgba(99, 102, 241, 0.15);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+    }
+  }
+
+  .exp-role, .edu-degree, .cert-name {
+    font-size: 14px;
+    color: theme.$gray-800;
+  }
+
+  .exp-company, .edu-school, .cert-authority {
+    font-size: 13px;
+    color: theme.$gray-500;
+  }
+
+  .exp-dates, .edu-dates, .cert-date {
+    font-weight: 500;
+  }
+
+  .exp-desc {
+    line-height: 1.5;
+  }
+
+  .edu-gpa {
+    background-color: rgba(99, 102, 241, 0.08);
+    color: theme.$primary;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  // Skills
+  .skills-flex {
+    .skill-tag-chip {
+      font-size: 12px;
+      background-color: theme.$gray-100;
+      color: theme.$gray-700;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-weight: 500;
+      border: 1px solid rgba(100, 116, 139, 0.05);
+
+      &.count-chip {
+        background-color: rgba(99, 102, 241, 0.08);
+        color: theme.$primary;
+      }
+    }
+  }
+
+  // Empty view placeholders
+  .empty-tab-view {
+    min-height: 280px;
+
+    .empty-icon-circle {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background-color: rgba(100, 116, 139, 0.05);
+      color: theme.$gray-400;
+
+      mat-icon {
+        font-size: 36px;
+        width: 36px;
+        height: 36px;
+      }
+    }
+
+    .empty-title {
+      font-size: 16px;
+      color: theme.$gray-800;
+    }
+
+    .empty-subtitle {
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .max-w-320 {
+      max-width: 320px;
+    }
+  }
+
+  // AI reserved layout blocks
+  .ai-status-block {
+    background-color: rgba(99, 102, 241, 0.03);
+    border-left: 3px solid theme.$primary;
+    border: 1px solid rgba(99, 102, 241, 0.08);
+    border-left-width: 4px;
+    
+    mat-icon {
+      color: theme.$primary;
+    }
+  }
+}
+
+// Skeletons
+.details-skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: theme.$space-6;
+  margin-top: theme.$space-4;
+
+  @include theme.desktop {
+    grid-template-columns: 320px 1fr;
+  }
+
+  .skeleton-profile-card {
+    height: 480px;
+    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    animation: loading-skeleton-pulse 1.5s infinite;
+    border-radius: 12px;
+  }
+
+  .skeleton-tabs-card {
+    height: 600px;
+    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    animation: loading-skeleton-pulse 1.5s infinite;
+    border-radius: 12px;
+  }
+}
+
+@keyframes loading-skeleton-pulse {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.error-container {
+  background-color: #ffffff;
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  border-radius: 12px;
+  
+  .error-title {
+    color: theme.$gray-800;
+  }
+
+  .error-subtitle {
+    font-size: 13px;
+  }
+}

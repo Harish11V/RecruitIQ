@@ -38,6 +38,10 @@ export const routes: Routes = [
         loadChildren: () => import('./features/departments/routes')
       },
       {
+        path: 'candidates',
+        loadChildren: () => import('./features/candidates/routes')
+      },
+      {
         path: 'company-settings',
         loadChildren: () => import('./features/company-settings/routes')
       }

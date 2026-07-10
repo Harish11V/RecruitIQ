@@ -1,0 +1,64 @@
+@use '../../../../styles/theme/theme' as theme;
+
+.candidate-form-layout {
+  width: 100%;
+}
+
+.grid-fields-2 {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: theme.$space-4;
+
+  @include theme.desktop {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grid-span-2 {
+    @include theme.desktop {
+      grid-column: span 2;
+    }
+  }
+}
+
+.status-field-container {
+  display: flex;
+  flex-direction: column;
+
+  .status-explanation {
+    margin-top: -8px;
+    font-size: 11px;
+    color: theme.$gray-500;
+  }
+}
+
+.max-w-480 {
+  max-width: 480px;
+}
+
+.disabled-field {
+  ::ng-deep .mdc-text-field--disabled {
+    background-color: theme.$gray-50 !important;
+  }
+}
+
+.info-card-box {
+  background-color: rgba(99, 102, 241, 0.04);
+  border: 1px solid rgba(99, 102, 241, 0.08);
+  border-left: 4px solid theme.$primary;
+
+  .info-title {
+    font-size: 14px;
+  }
+
+  .info-desc {
+    line-height: 1.5;
+  }
+}
+
+.d-none {
+  display: none !important;
+}
+
+.mr-1 {
+  margin-right: 4px;
+}

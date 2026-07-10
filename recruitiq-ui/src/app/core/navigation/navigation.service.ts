@@ -22,7 +22,7 @@ export class NavigationService {
     {
       sectionTitle: 'Recruitment',
       items: [
-        { label: 'Candidates', route: '/admin/candidates', icon: 'people', enabled: false, badge: 'Coming Soon' },
+        { label: 'Candidates', route: '/admin/candidates', icon: 'people', enabled: true },
         { label: 'Applications', route: '/admin/applications', icon: 'assignment', enabled: false, badge: 'Coming Soon' },
         { label: 'Interviews', route: '/admin/interviews', icon: 'event', enabled: false, badge: 'Coming Soon' }
       ]

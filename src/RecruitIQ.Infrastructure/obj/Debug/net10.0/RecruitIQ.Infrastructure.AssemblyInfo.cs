@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RecruitIQ.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f9108702a24a03fab54f9d2cc29446e911ce8002")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6f4f5846f339975257fcb8b37549c1e5580bf3d2")]
 [assembly: System.Reflection.AssemblyProductAttribute("RecruitIQ.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RecruitIQ.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
