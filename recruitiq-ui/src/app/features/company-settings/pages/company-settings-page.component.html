@@ -1,0 +1,174 @@
+<app-page-container>
+  <app-section-header 
+    title="Company Settings" 
+    description="Manage your enterprise workspace details, branding assets, regional timezone preferences, and domain controls.">
+  </app-section-header>
+
+  @if (store.isLoading()) {
+    <div class="skeleton-container mt-6">
+      <div class="skeleton-card mb-6"></div>
+      <div class="skeleton-card"></div>
+    </div>
+  } @else {
+    <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()" class="company-settings-form mt-6">
+      <div class="settings-grid">
+        
+        <!-- Left Side: Profile & Branding -->
+        <div class="grid-column">
+          <!-- Card 1: Company Profile Info (Read-only detail rows) -->
+          <app-card [hasHeader]="true" id="company-profile-card">
+            <span card-header class="section-card-title d-flex align-center gap-2">
+              <mat-icon class="material-symbols-rounded text-primary">domain</mat-icon>
+              <span>Company Profile</span>
+            </span>
+            <div card-content class="profile-details-box">
+              <app-detail-row label="Company Name" [value]="companyName()"></app-detail-row>
+              <app-detail-row label="Workspace Subdomain" [value]="subdomain()"></app-detail-row>
+              <div class="profile-notice d-flex align-center gap-2 mt-4 p-3">
+                <mat-icon class="material-symbols-rounded info-icon">info</mat-icon>
+                <span class="info-text text-muted">Profile metadata is configured during onboarding. Contact support to request edits.</span>
+              </div>
+            </div>
+          </app-card>
+
+          <!-- Card 2: Branding (Logo upload) -->
+          <app-card [hasHeader]="true" id="company-branding-card" class="mt-6">
+            <span card-header class="section-card-title d-flex align-center gap-2">
+              <mat-icon class="material-symbols-rounded text-primary">palette</mat-icon>
+              <span>Branding</span>
+            </span>
+            <div card-content class="branding-logo-box">
+              <app-image-upload
+                [imageUrl]="store.settings()?.logoUrl || null"
+                [isUploading]="store.isLogoUploading()"
+                [maxSizeMb]="5"
+                placeholderText="Upload Company Logo"
+                supportedFormats="PNG, JPG, or JPEG up to 5 MB"
+                (upload)="onUploadLogo($event)"
+                (remove)="onRemoveLogo()">
+              </app-image-upload>
+            </div>
+          </app-card>
+        </div>
+
+        <!-- Right Side: Preferences & Address -->
+        <div class="grid-column">
+          <!-- Card 3: Regional & System Preferences -->
+          <app-card [hasHeader]="true" id="company-preferences-card">
+            <span card-header class="section-card-title d-flex align-center gap-2">
+              <mat-icon class="material-symbols-rounded text-primary">settings_applications</mat-icon>
+              <span>System Preferences</span>
+            </span>
+            <div card-content class="d-flex flex-column gap-4">
+              <!-- Theme -->
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Default Theme</mat-label>
+                <mat-select formControlName="theme">
+                  @for (t of themes; track t) {
+                    <mat-option [value]="t">{{ t }}</mat-option>
+                  }
+                </mat-select>
+                @if (settingsForm.get('theme')?.hasError('required')) {
+                  <mat-error>Default theme is required</mat-error>
+                }
+              </mat-form-field>
+
+              <!-- Timezone -->
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Corporate Timezone</mat-label>
+                <mat-select formControlName="timezone">
+                  @for (tz of timezones; track tz) {
+                    <mat-option [value]="tz">{{ tz }}</mat-option>
+                  }
+                </mat-select>
+                @if (settingsForm.get('timezone')?.hasError('required')) {
+                  <mat-error>Corporate timezone is required</mat-error>
+                }
+              </mat-form-field>
+
+              <!-- Default Interview Duration -->
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Default Interview Duration (minutes)</mat-label>
+                <input matInput type="number" formControlName="defaultInterviewDuration" placeholder="e.g. 30">
+                <mat-hint>Duration bounds must be between 15 and 180 minutes.</mat-hint>
+                @if (settingsForm.get('defaultInterviewDuration')?.hasError('required')) {
+                  <mat-error>Interview duration is required</mat-error>
+                }
+                @if (settingsForm.get('defaultInterviewDuration')?.hasError('min') || settingsForm.get('defaultInterviewDuration')?.hasError('max')) {
+                  <mat-error>Duration must be between 15 and 180 minutes</mat-error>
+                }
+              </mat-form-field>
+
+              <!-- Allowed Email Domain -->
+              <mat-form-field appearance="outline" class="w-100 mt-2">
+                <mat-label>Allowed Candidate Email Domain</mat-label>
+                <input matInput type="text" formControlName="allowedEmailDomain" placeholder="e.g. company.com">
+                <mat-hint>Restricts candidate application registration (Optional).</mat-hint>
+                @if (settingsForm.get('allowedEmailDomain')?.hasError('pattern')) {
+                  <mat-error>Please enter a valid domain (e.g. company.com)</mat-error>
+                }
+              </mat-form-field>
+            </div>
+          </app-card>
+
+          <!-- Card 4: Corporate Address (Read-only) -->
+          <app-card [hasHeader]="true" id="company-address-card" class="mt-6">
+            <span card-header class="section-card-title d-flex align-center gap-2">
+              <mat-icon class="material-symbols-rounded text-primary">pin_drop</mat-icon>
+              <span>Corporate Address</span>
+            </span>
+            <div card-content class="address-details-box">
+              <app-detail-row label="Street Address" value="100 Pine Street, Suite 1200"></app-detail-row>
+              <app-detail-row label="City & State" value="San Francisco, CA"></app-detail-row>
+              <app-detail-row label="Postal Code" value="94111"></app-detail-row>
+              <app-detail-row label="Country" value="United States"></app-detail-row>
+            </div>
+          </app-card>
+        </div>
+
+      </div>
+
+      <!-- Sticky Action Footer Bar -->
+      <div class="sticky-form-footer d-flex align-center justify-between" [class.collapsed]="layoutService.isSidebarCollapsed()">
+        <div class="footer-status-label d-flex align-center gap-2">
+          @if (store.saveSuccessMessage()) {
+            <mat-icon class="material-symbols-rounded text-success">check_circle</mat-icon>
+            <span class="success-label text-success font-medium">{{ store.saveSuccessMessage() }}</span>
+          } @else if (settingsForm.dirty) {
+            <mat-icon class="material-symbols-rounded text-warning">pending</mat-icon>
+            <span class="pending-label text-warning font-medium">You have unsaved settings changes</span>
+          }
+        </div>
+
+        <div class="footer-actions d-flex align-center gap-3">
+          <button 
+            mat-stroked-button 
+            type="button" 
+            [disabled]="!settingsForm.dirty || store.isSaving()" 
+            (click)="onReset()">
+            Reset
+          </button>
+          
+          <button 
+            mat-flat-button 
+            color="primary" 
+            type="submit" 
+            [disabled]="!settingsForm.dirty || store.isSaving() || settingsForm.invalid">
+            @if (store.isSaving()) {
+              <ng-container>
+                <mat-spinner diameter="20" class="mr-2"></mat-spinner>
+                <span>Saving...</span>
+              </ng-container>
+            } @else {
+              <ng-container>
+                <mat-icon class="material-symbols-rounded">save</mat-icon>
+                <span>Save Changes</span>
+              </ng-container>
+            }
+          </button>
+        </div>
+      </div>
+
+    </form>
+  }
+</app-page-container>

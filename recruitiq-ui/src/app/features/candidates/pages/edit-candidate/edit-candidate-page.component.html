@@ -1,0 +1,73 @@
+<app-page-container>
+  
+  <!-- Page Header -->
+  <app-section-header 
+    title="Edit Candidate" 
+    subtitle="Modify profile details and check ATS status mappings">
+    
+    <button actions mat-stroked-button type="button" (click)="onCancel()">
+      <mat-icon class="material-symbols-rounded">arrow_back</mat-icon>
+      <span>Back to Profile</span>
+    </button>
+  </app-section-header>
+
+  @if (isLoading()) {
+    <div class="edit-skeleton-box mt-6"></div>
+  }
+  @else if (error()) {
+    <div class="error-container d-flex flex-column align-center justify-center p-8 mt-6">
+      <mat-icon class="material-symbols-rounded text-danger font-48">error</mat-icon>
+      <h3 class="error-title text-semibold mt-2 m-0">Failed to load profile</h3>
+      <p class="error-subtitle text-muted text-center mt-1 mb-4">{{ error() }}</p>
+      <button mat-flat-button color="primary" (click)="ngOnInit()">Retry</button>
+    </div>
+  }
+  @else {
+    
+    <!-- Candidate Form Component -->
+    <div class="form-container-block mt-6">
+      <app-candidate-form 
+        [formGroup]="form" 
+        [isSaving]="isSaving()"
+        [isEditMode]="true"
+        (save)="onSave()"
+        (cancel)="onCancel()">
+      </app-candidate-form>
+    </div>
+
+    <!-- Sticky Footer Action Bar -->
+    <div class="sticky-footer-bar d-flex align-center justify-between p-4">
+      <span class="text-muted font-12 italic">
+        * Required fields must be completed.
+      </span>
+
+      <div class="d-flex align-center gap-2">
+        <button 
+          mat-stroked-button 
+          type="button" 
+          [disabled]="isSaving()" 
+          (click)="onCancel()">
+          <span>Cancel</span>
+        </button>
+        
+        <button 
+          mat-flat-button 
+          color="primary" 
+          type="button" 
+          [disabled]="isSaving() || form.invalid || form.pristine" 
+          (click)="onSave()">
+          @if (!isSaving()) {
+            <span>Save Changes</span>
+          } @else {
+            <div class="d-flex align-center gap-2">
+              <mat-spinner diameter="16" color="accent"></mat-spinner>
+              <span>Saving...</span>
+            </div>
+          }
+        </button>
+      </div>
+    </div>
+
+  }
+
+</app-page-container>

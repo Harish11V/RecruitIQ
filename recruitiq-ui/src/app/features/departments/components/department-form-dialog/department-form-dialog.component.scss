@@ -1,0 +1,31 @@
+@use '../../../../styles/theme/theme' as theme;
+
+.dialog-title {
+  margin: 0;
+  padding: theme.$space-4 theme.$space-6;
+  font-size: 18px;
+  font-weight: 600;
+
+  mat-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.dialog-content {
+  padding: theme.$space-2 theme.$space-6 !important;
+  min-width: 320px;
+  max-width: 480px;
+  box-sizing: border-box;
+}
+
+.dialog-actions {
+  padding: theme.$space-4 theme.$space-6 !important;
+
+  button {
+    height: 38px;
+    font-weight: 500;
+    border-radius: 6px;
+  }
+}

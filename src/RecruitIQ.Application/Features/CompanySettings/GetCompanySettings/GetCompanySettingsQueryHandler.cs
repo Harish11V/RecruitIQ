@@ -47,7 +47,8 @@ public class GetCompanySettingsQueryHandler : IRequestHandler<GetCompanySettings
             settings.LogoUrl,
             settings.Timezone,
             settings.DefaultInterviewDuration,
-            settings.AllowedEmailDomain);
+            settings.AllowedEmailDomain,
+            settings.RowVersion);
 
         return Result<CompanySettingsResponse>.Success(response);
     }

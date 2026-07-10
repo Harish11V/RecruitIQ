@@ -8,4 +8,5 @@ public record CompanySettingsResponse(
     string? LogoUrl,
     string Timezone,
     int DefaultInterviewDuration,
-    string? AllowedEmailDomain);
+    string? AllowedEmailDomain,
+    byte[] RowVersion);

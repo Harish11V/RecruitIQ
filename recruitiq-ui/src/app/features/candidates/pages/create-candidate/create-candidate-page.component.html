@@ -1,0 +1,52 @@
+<app-page-container>
+  
+  <!-- Page Header -->
+  <app-section-header 
+    title="Create Candidate" 
+    subtitle="Add a new candidate profile to your workspace">
+  </app-section-header>
+
+  <!-- Candidate Form Component -->
+  <div class="form-container-block mt-4">
+    <app-candidate-form 
+      [formGroup]="form" 
+      [isSaving]="isSaving()"
+      (save)="onSave()"
+      (cancel)="onCancel()">
+    </app-candidate-form>
+  </div>
+
+  <!-- Sticky Footer Action Bar -->
+  <div class="sticky-footer-bar d-flex align-center justify-between p-4">
+    <span class="text-muted font-12 italic">
+      * Required fields must be completed.
+    </span>
+
+    <div class="d-flex align-center gap-2">
+      <button 
+        mat-stroked-button 
+        type="button" 
+        [disabled]="isSaving()" 
+        (click)="onCancel()">
+        <span>Cancel</span>
+      </button>
+      
+      <button 
+        mat-flat-button 
+        color="primary" 
+        type="button" 
+        [disabled]="isSaving()" 
+        (click)="onSave()">
+        @if (!isSaving()) {
+          <span>Create Candidate</span>
+        } @else {
+          <div class="d-flex align-center gap-2">
+            <mat-spinner diameter="16" color="accent"></mat-spinner>
+            <span>Creating...</span>
+          </div>
+        }
+      </button>
+    </div>
+  </div>
+
+</app-page-container>

@@ -1,0 +1,79 @@
+@if (store.isLoading()) {
+  <div class="timeline-skeleton-list d-flex flex-column gap-6">
+    <div class="timeline-skeleton-item d-flex gap-4">
+      <div class="circle-skeleton"></div>
+      <div class="card-skeleton flex-grow"></div>
+    </div>
+    <div class="timeline-skeleton-item d-flex gap-4">
+      <div class="circle-skeleton"></div>
+      <div class="card-skeleton flex-grow"></div>
+    </div>
+    <div class="timeline-skeleton-item d-flex gap-4">
+      <div class="circle-skeleton"></div>
+      <div class="card-skeleton flex-grow"></div>
+    </div>
+  </div>
+} @else if (store.error()) {
+  <div class="error-container-panel d-flex flex-column align-center justify-center p-8">
+    <mat-icon class="material-symbols-rounded text-danger font-48">error</mat-icon>
+    <h4 class="error-title font-semibold mt-2 m-0">Failed to load timeline</h4>
+    <p class="error-desc text-muted mt-1 mb-4">{{ store.error() }}</p>
+    <button mat-flat-button color="primary" type="button" (click)="loadTimeline()">
+      <span>Retry</span>
+    </button>
+  </div>
+} @else if (store.timelineItems().length === 0) {
+  <div class="empty-timeline-box d-flex flex-column align-center justify-center p-8 text-center rounded border-dashed">
+    <mat-icon class="material-symbols-rounded text-muted mb-2 font-36">history</mat-icon>
+    <h4 class="empty-title font-semibold m-0">No Activities Found</h4>
+    <p class="empty-subtitle text-muted font-12 mt-1 mb-0 max-w-320">
+      No logged activity records are currently associated with this candidate profile.
+    </p>
+  </div>
+} @else {
+  
+  <div class="timeline-container d-flex flex-column gap-6">
+    <div class="timeline-track-line"></div>
+
+    @for (item of store.timelineItems(); track item.activityId) {
+      <div class="timeline-entry-row d-flex gap-4">
+        
+        <!-- Activity icon badge circle -->
+        <div class="timeline-badge-circle d-flex align-center justify-center rounded-full text-white shadow-sm"
+             [ngClass]="getBgColorClass(item.color)">
+          <mat-icon class="material-symbols-rounded font-18">{{ item.icon }}</mat-icon>
+        </div>
+
+        <!-- Activity details block card -->
+        <div class="timeline-content-card flex-grow p-4 rounded border shadow-sm">
+          <div class="d-flex align-start justify-between gap-3">
+            <h4 class="activity-action-name font-semibold font-14 m-0" [ngClass]="getTextColorClass(item.color)">
+              {{ item.action }}
+            </h4>
+            <span class="activity-time text-muted font-11 whitespace-nowrap" [matTooltip]="item.timestamp | date:'medium'">
+              {{ getRelativeTime(item.timestamp) }}
+            </span>
+          </div>
+
+          @if (item.description) {
+            <p class="activity-desc-text font-medium font-13 mt-2 mb-0">
+              {{ item.description }}
+            </p>
+          }
+
+          <div class="activity-footer d-flex align-center justify-between mt-3 pt-2 border-top">
+            <div class="d-flex align-center gap-1 text-muted font-11">
+              <app-user-avatar [name]="item.performedBy" [size]="20"></app-user-avatar>
+              <span class="ml-1 text-medium text-gray-700">{{ item.performedBy }}</span>
+            </div>
+            <span class="badge-mini font-semibold font-9 uppercase text-muted px-1.5 py-0.5 rounded">
+              Log
+            </span>
+          </div>
+        </div>
+
+      </div>
+    }
+  </div>
+
+}

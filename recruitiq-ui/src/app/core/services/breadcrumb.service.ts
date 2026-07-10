@@ -49,4 +49,15 @@ export class BreadcrumbService {
 
     return breadcrumbs;
   }
+
+  updateBreadcrumbLabel(url: string, label: string): void {
+    const current = this.breadcrumbs();
+    const updated = current.map(bc => {
+      if (bc.url === url || bc.url.endsWith(url)) {
+        return { ...bc, label };
+      }
+      return bc;
+    });
+    this.breadcrumbs.set(updated);
+  }
 }

@@ -1,0 +1,183 @@
+@use '../../../styles/theme/theme' as theme;
+
+.departments-toolbar {
+  .search-box-wrapper {
+    position: relative;
+    background-color: #ffffff;
+    border: 1px solid rgba(100, 116, 139, 0.15);
+    border-radius: 8px;
+    padding: 0 theme.$space-3;
+    height: 42px;
+    width: 100%;
+    max-width: 480px;
+    box-sizing: border-box;
+
+    @include theme.mobile {
+      max-width: 100%;
+    }
+
+    .search-icon {
+      color: theme.$gray-400;
+      font-size: 20px;
+      margin-right: theme.$space-2;
+    }
+
+    .search-input {
+      border: none;
+      outline: none;
+      font-size: 13px;
+      color: theme.$gray-800;
+      width: 100%;
+      background: transparent;
+
+      &::placeholder {
+        color: theme.$gray-400;
+      }
+    }
+  }
+
+  .toolbar-actions {
+    button {
+      height: 42px;
+      font-weight: 500;
+      border-radius: 8px;
+
+      mat-icon {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}
+
+.departments-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: theme.$space-6;
+
+  @include theme.tablet {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include theme.desktop {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  // Ultra-wide screens can scale to 4 columns
+  @media (min-width: 1600px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.department-card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.01);
+  }
+
+  .card-body {
+    min-height: 220px;
+  }
+
+  .department-title {
+    font-size: 16px;
+    color: theme.$gray-900;
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .action-menu-btn {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    color: theme.$gray-400;
+  }
+
+  .department-description {
+    font-size: 13px;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 58px; // align description box heights
+  }
+
+  // Metadata Footer
+  .metadata-divider {
+    height: 1px;
+    background-color: rgba(100, 116, 139, 0.08);
+  }
+
+  .card-metadata-footer {
+    .metadata-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: theme.$gray-400;
+    }
+
+    .metadata-value {
+      font-size: 12px;
+      color: theme.$gray-600;
+      margin-top: 2px;
+    }
+  }
+}
+
+// Skeleton Cards Loader
+.skeleton-card {
+  width: 100%;
+  height: 250px;
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: loading-skeleton 1.5s infinite;
+  border-radius: 12px;
+}
+
+@keyframes loading-skeleton {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// Empty Illustration State
+.empty-state-container {
+  background-color: #ffffff;
+  border: 1px solid rgba(100, 116, 139, 0.1);
+  border-radius: 12px;
+  text-align: center;
+
+  .empty-illustration-wrapper {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: rgba(100, 116, 139, 0.05);
+    color: theme.$gray-400;
+
+    .empty-icon {
+      font-size: 40px;
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  .empty-title {
+    font-size: 16px;
+    color: theme.$gray-800;
+  }
+
+  .empty-subtitle {
+    font-size: 13px;
+    max-width: 320px;
+    line-height: 1.5;
+  }
+}

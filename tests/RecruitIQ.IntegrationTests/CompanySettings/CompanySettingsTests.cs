@@ -173,7 +173,7 @@ public class CompanySettingsTests : IDisposable
         _currentUserService.UserId = userId.ToString();
 
         // Act
-        var updateCommand = new UpdateCompanySettingsCommand("Dark", "EST", 45, "test.com");
+        var updateCommand = new UpdateCompanySettingsCommand("Dark", "EST", 45, "test.com", Array.Empty<byte>());
         var updateResult = await SendAsync(updateCommand);
         Assert.True(updateResult.IsSuccess);
 
@@ -310,7 +310,7 @@ public class CompanySettingsTests : IDisposable
         await SeedCompanyAndUserAsync(tenant2, Guid.NewGuid());
 
         _tenantService.CompanyId = tenant1;
-        var updateCommand = new UpdateCompanySettingsCommand("Dark", "EST", 45, "tenant1.com");
+        var updateCommand = new UpdateCompanySettingsCommand("Dark", "EST", 45, "tenant1.com", Array.Empty<byte>());
         var updateResult = await SendAsync(updateCommand);
         Assert.True(updateResult.IsSuccess);
 

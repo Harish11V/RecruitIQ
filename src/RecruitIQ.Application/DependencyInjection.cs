@@ -19,6 +19,9 @@ public static class DependencyInjection
         // Register FluentValidation
         services.AddValidatorsFromAssembly(assembly);
 
+        // Register Lifecycle Service
+        services.AddScoped<Common.Interfaces.ICandidateLifecycleService, Services.CandidateLifecycleService>();
+
         return services;
     }
 }

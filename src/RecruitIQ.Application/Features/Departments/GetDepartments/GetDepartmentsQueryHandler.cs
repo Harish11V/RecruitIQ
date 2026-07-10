@@ -9,7 +9,7 @@ using RecruitIQ.Contracts;
 
 namespace RecruitIQ.Application.Features.Departments.GetDepartments;
 
-public class GetDepartmentsQueryHandler : IRequestHandler<GetDepartmentsQuery, Result<IReadOnlyList<DepartmentSummaryResponse>>>
+public class GetDepartmentsQueryHandler : IRequestHandler<GetDepartmentsQuery, Result<IReadOnlyList<DepartmentResponse>>>
 {
     private readonly IRecruitIQDbContext _context;
 
@@ -18,13 +18,28 @@ public class GetDepartmentsQueryHandler : IRequestHandler<GetDepartmentsQuery, R
         _context = context;
     }
 
-    public Task<Result<IReadOnlyList<DepartmentSummaryResponse>>> Handle(GetDepartmentsQuery request, CancellationToken cancellationToken)
+    public Task<Result<IReadOnlyList<DepartmentResponse>>> Handle(GetDepartmentsQuery request, CancellationToken cancellationToken)
     {
-        var departments = _context.Departments
+        var query = _context.Departments.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(request.Search))
+        {
+            var searchLower = request.Search.ToLower();
+            query = query.Where(d => d.Name.ToLower().Contains(searchLower) || 
+                                     (d.Description != null && d.Description.ToLower().Contains(searchLower)));
+        }
+
+        var departments = query
             .OrderBy(d => d.Name)
-            .Select(d => new DepartmentSummaryResponse(d.Id, d.Name))
+            .Select(d => new DepartmentResponse(
+                d.Id, 
+                d.Name, 
+                d.Description, 
+                d.CreatedAt, 
+                d.UpdatedAt, 
+                d.RowVersion))
             .ToList();
 
-        return Task.FromResult(Result<IReadOnlyList<DepartmentSummaryResponse>>.Success(departments));
+        return Task.FromResult(Result<IReadOnlyList<DepartmentResponse>>.Success(departments));
     }
 }

@@ -1,0 +1,28 @@
+@use '../../../../styles/theme/theme' as theme;
+
+.dialog-container {
+  min-width: 320px;
+  max-width: 480px;
+}
+
+.status-summary-info {
+  background-color: #f8fafc;
+  border: 1px solid rgba(100, 116, 139, 0.08);
+
+  .current-status-badge {
+    background-color: rgba(99, 102, 241, 0.08);
+    color: #4f46e5;
+  }
+}
+
+.border-left-alert {
+  border-left: 3px solid #6366f1;
+  background-color: #f8fafc;
+  padding: 8px 12px;
+  line-height: 1.5;
+}
+
+mat-dialog-actions {
+  padding: 0;
+  margin-top: 1.5rem;
+}

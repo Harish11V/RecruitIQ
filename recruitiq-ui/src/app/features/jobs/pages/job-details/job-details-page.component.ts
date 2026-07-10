@@ -19,6 +19,8 @@ import { NotificationService } from '../../../../core/services/notification.serv
 import { JobDetailsResponseDto, JobStatus, EmploymentType } from '../../models/job.models';
 import { JobActionService } from '../../services/job-action.service';
 
+import { JobStatusChipComponent } from '../../components/job-status-chip/job-status-chip.component';
+
 @Component({
   selector: 'app-job-details-page',
   standalone: true,
@@ -31,7 +33,8 @@ import { JobActionService } from '../../services/job-action.service';
     PageContainerComponent,
     SectionHeaderComponent,
     AppCardComponent,
-    DetailRowComponent
+    DetailRowComponent,
+    JobStatusChipComponent
   ],
   templateUrl: './job-details-page.component.html',
   styleUrl: './job-details-page.component.scss',
@@ -90,28 +93,6 @@ export class JobDetailsPageComponent implements OnInit {
     });
   }
 
-  // Formatting Helpers
-  protected getStatusName(status: JobStatus | undefined): string {
-    if (status === undefined) return '';
-    switch (status) {
-      case JobStatus.Draft: return 'Draft';
-      case JobStatus.Published: return 'Published';
-      case JobStatus.Closed: return 'Closed';
-      case JobStatus.Archived: return 'Archived';
-      default: return 'Unknown';
-    }
-  }
-
-  protected getStatusClass(status: JobStatus | undefined): string {
-    if (status === undefined) return '';
-    switch (status) {
-      case JobStatus.Draft: return 'draft';
-      case JobStatus.Published: return 'published';
-      case JobStatus.Closed: return 'closed';
-      case JobStatus.Archived: return 'archived';
-      default: return '';
-    }
-  }
 
   protected getEmploymentTypeName(type: EmploymentType | undefined): string {
     if (type === undefined) return '';

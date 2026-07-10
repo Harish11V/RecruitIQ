@@ -1,0 +1,140 @@
+<app-page-container>
+  <app-section-header 
+    title="Departments" 
+    description="Manage your organization's departmental units, configure visual descriptions, and track recruitment scope mappings.">
+  </app-section-header>
+
+  <!-- Toolbar Search & Actions -->
+  <div class="departments-toolbar d-flex align-center justify-between wrap gap-3 mt-6">
+    <div class="search-box-wrapper d-flex align-center">
+      <mat-icon class="search-icon material-symbols-rounded">search</mat-icon>
+      <input 
+        type="text" 
+        [formControl]="searchControl" 
+        placeholder="Search departments by name or description..." 
+        class="search-input"
+        aria-label="Search departments">
+    </div>
+
+    <div class="toolbar-actions d-flex align-center gap-2">
+      <button 
+        mat-stroked-button 
+        type="button" 
+        (click)="onRefresh()" 
+        [disabled]="store.isLoading()"
+        matTooltip="Refresh Department List">
+        <mat-icon class="material-symbols-rounded">refresh</mat-icon>
+        <span>Refresh</span>
+      </button>
+      
+      <button 
+        mat-flat-button 
+        color="primary" 
+        type="button" 
+        (click)="openFormDialog('create')">
+        <mat-icon class="material-symbols-rounded">add</mat-icon>
+        <span>Create Department</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading State (Skeleton Cards) -->
+  @if (store.isLoading()) {
+    <div class="departments-grid mt-6">
+      @for (i of [1, 2, 3, 4, 5, 6]; track i) {
+        <div class="skeleton-card"></div>
+      }
+    </div>
+  }
+  @else {
+    <!-- Empty State -->
+    @if (store.departments().length === 0) {
+      <div class="empty-state-container d-flex flex-column align-center justify-center mt-12 p-8">
+        <div class="empty-illustration-wrapper d-flex align-center justify-center mb-4">
+          <mat-icon class="material-symbols-rounded empty-icon">domain_disabled</mat-icon>
+        </div>
+        <h3 class="empty-title text-semibold m-0">No departments found</h3>
+        <p class="empty-subtitle text-muted text-center mt-1 mb-6">
+          @if (store.searchTerm()) {
+            No departments match your active search filter. Try clearing or expanding your query.
+          } @else {
+            Start organizing your recruitment hierarchy by creating your first company department.
+          }
+        </p>
+        
+        <button 
+          mat-flat-button 
+          color="primary" 
+          type="button" 
+          (click)="openFormDialog('create')">
+          <mat-icon class="material-symbols-rounded">add</mat-icon>
+          <span>Create Department</span>
+        </button>
+      </div>
+    }
+    <!-- Department Grid of Responsive Cards -->
+    @else {
+      <div class="departments-grid mt-6">
+        @for (dept of store.departments(); track dept.id) {
+          <app-card class="department-card h-100" [hasHeader]="false">
+            <div card-content class="card-body d-flex flex-column justify-between h-100">
+              
+              <!-- Card Top: Title, Description, Action Menu -->
+              <div class="card-top-content">
+                <div class="card-header-bar d-flex align-start justify-between gap-2">
+                  <div class="card-title-group d-flex align-center gap-2">
+                    <mat-icon class="material-symbols-rounded text-primary">domain</mat-icon>
+                    <h3 class="department-title text-semibold m-0" [matTooltip]="dept.name" matTooltipPosition="above">
+                      {{ dept.name }}
+                    </h3>
+                  </div>
+                  
+                  <button 
+                    mat-icon-button 
+                    [matMenuTriggerFor]="cardMenu" 
+                    aria-label="Department actions"
+                    class="action-menu-btn">
+                    <mat-icon class="material-symbols-rounded">more_vert</mat-icon>
+                  </button>
+                  
+                  <mat-menu #cardMenu="matMenu" xPosition="before">
+                    <button mat-menu-item (click)="openFormDialog('edit', dept)">
+                      <mat-icon class="material-symbols-rounded text-primary">edit</mat-icon>
+                      <span>Edit</span>
+                    </button>
+                    <button mat-menu-item (click)="onDelete(dept)">
+                      <mat-icon class="material-symbols-rounded text-danger">delete</mat-icon>
+                      <span class="text-danger">Delete</span>
+                    </button>
+                  </mat-menu>
+                </div>
+
+                <p class="department-description text-muted mt-3 mb-4">
+                  {{ dept.description || 'No description provided.' }}
+                </p>
+              </div>
+
+              <!-- Card Bottom: Metadata Footer (Future-proof block) -->
+              <div class="card-metadata-footer">
+                <div class="metadata-divider mb-3"></div>
+                <div class="metadata-row d-flex justify-between text-muted">
+                  <div class="metadata-item d-flex flex-column">
+                    <span class="metadata-label">Created</span>
+                    <span class="metadata-value font-medium">{{ dept.createdAt | date:'mediumDate' }}</span>
+                  </div>
+                  <div class="metadata-item d-flex flex-column align-end">
+                    <span class="metadata-label">Last Updated</span>
+                    <span class="metadata-value font-medium">
+                      {{ dept.updatedAt ? (dept.updatedAt | date:'mediumDate') : 'Never' }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </app-card>
+        }
+      </div>
+    }
+  }
+</app-page-container>

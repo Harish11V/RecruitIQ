@@ -4,4 +4,5 @@ public record UpdateCompanySettingsRequest(
     string Theme,
     string Timezone,
     int DefaultInterviewDuration,
-    string? AllowedEmailDomain);
+    string? AllowedEmailDomain,
+    byte[] RowVersion);
